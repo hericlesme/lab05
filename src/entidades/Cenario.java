@@ -15,6 +15,49 @@ public class Cenario {
 		this.apostas = new HashSet<>();
 	}
 
+	public void cadastraAposta(String apostador, int valor, String previsao) {
+		apostas.add(new Aposta(apostador, valor, previsao));
+	}
+
+	public String exibeApostas() {
+		String retorno = "";
+		for (Aposta i : apostas) {
+			retorno += i.toString() + System.lineSeparator();
+		}
+		return retorno;
+	}
+
+	public int totalDeApostas() {
+		return apostas.size();
+	}
+
+	public int valorTotalDeAposta() {
+		int soma = 0;
+		for (Aposta i : apostas) {
+			soma += i.getValor();
+		}
+		return soma;
+	}
+
+	public int ganhoVencedores() {
+		int total = 0;
+		if (estado.equals(Estado.NAO_OCORREU)) {
+			for (Aposta i : apostas) {
+				if (i.getPrevisao().equals("N VAI ACONTECER")) {
+					total += i.getValor();
+				}
+			}
+		} else if (estado.equals(Estado.OCORREU)) {
+			for (Aposta i : apostas) {
+				if (i.getPrevisao().equals("VAI ACONTECER")) {
+					total += i.getValor();
+				}
+			}
+		}
+		return total;
+	}
+
+	@Override
 	public String toString() {
 		return this.numeracao + " - " + this.descricao + " - " + this.estado.getValor();
 	}
