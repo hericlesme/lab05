@@ -3,12 +3,29 @@ package entidades;
 import java.util.HashMap;
 
 public class Sistema {
+	private int caixa;
+	private double taxa;
 	private int numeracao;
 	private HashMap<Integer, Cenario> cenarios;
 
 	public Sistema() {
+		this.taxa = 0;
 		this.numeracao = 1;
 		this.cenarios = new HashMap<>();
+	}
+
+	public int getNumeracao() {
+		return numeracao;
+	}
+	public int getCaixa() {
+		return caixa;
+	}
+	public void setCaixa(int caixa) {
+		this.caixa = caixa;
+	}
+	
+	public void setTaxa(double taxa) {
+		this.taxa = taxa;
 	}
 
 	public void cadastrarCenario(String descricao) {
@@ -43,15 +60,19 @@ public class Sistema {
 	public String exibeApostas(int cenario) {
 		return cenarios.get(cenario).exibeApostas();
 	}
-	
+
 	public void fecharAposta(int cenario, boolean ocorreu) {
 		cenarios.get(cenario).concretizaCenario(ocorreu);
+		this.caixa += caixaCenario(cenario) * 100;
 	}
-	
-//	public int getCaixaCenario(int cenario) {
-//		return (int) (cenarios.get(cenario).valorTotalDeAposta() - cenarios.get(cenario).ganhoVencedores());
-//	}
-		
-//	int caixa = (int) (cenarios.get(cenario).caixaCenario() * this.taxa);
-//	return caixa;
+
+	public int caixaCenario(int cenario) {
+		Cenario c = cenarios.get(cenario);
+		return (int) (c.valorTotalDeAposta() - c.getValorAdquirido() * this.taxa);
+	}
+
+	public int totalRateioCenario(int cenario) {
+		Cenario c = cenarios.get(cenario);
+		return (int) c.getValorAdquirido() / c.calculaQtdVencedores();
+	}
 }

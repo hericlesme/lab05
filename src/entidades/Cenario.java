@@ -3,16 +3,18 @@ package entidades;
 import java.util.HashSet;
 
 public class Cenario {
-	private HashSet<Aposta> apostas;
 	private int numeracao;
-	private String descricao;
 	private Estado estado;
+	private String descricao;
+	private int valorAdquirido;
+	private HashSet<Aposta> apostas;
 
 	public Cenario(int numeracao, String descricao) {
+		this.valorAdquirido = 0;
 		this.numeracao = numeracao;
 		this.descricao = descricao;
-		this.estado = Estado.NAO_FINALIZADO;
 		this.apostas = new HashSet<>();
+		this.estado = Estado.NAO_FINALIZADO;
 	}
 
 	public void cadastraAposta(String apostador, int valor, String previsao) {
@@ -39,22 +41,48 @@ public class Cenario {
 		return soma;
 	}
 
-	public int ganhoVencedores() {
+	public void concretizaCenario(boolean ocorreu) {
+		if (ocorreu) {
+			this.estado = Estado.OCORREU;
+			this.valorAdquirido += calculaValorAdquirido("VAI ACONTECER");
+		} else {
+			this.estado = Estado.NAO_OCORREU;
+			this.valorAdquirido += calculaValorAdquirido("N VAI ACONTECER");
+		}
+	}
+
+	private int calculaValorAdquirido(String previsao) {
 		int total = 0;
-		if (estado.equals(Estado.NAO_OCORREU)) {
-			for (Aposta i : apostas) {
-				if (i.getPrevisao().equals("N VAI ACONTECER")) {
-					total += i.getValor();
-				}
-			}
-		} else if (estado.equals(Estado.OCORREU)) {
-			for (Aposta i : apostas) {
-				if (i.getPrevisao().equals("VAI ACONTECER")) {
-					total += i.getValor();
-				}
+		for (Aposta i : apostas) {
+			if (i.getPrevisao().equals(previsao)) {
+				total += i.getValor();
 			}
 		}
 		return total;
+	}
+
+	public int calculaQtdVencedores() {
+		if (this.estado.equals(Estado.NAO_OCORREU)) {
+			return procuraVencedores("N VAI ACONTECER");
+		} else if (this.estado.equals(Estado.OCORREU)) {
+			return procuraVencedores("VAI ACONTECER");
+		} else {
+			return 0;
+		}
+	}
+
+	private int procuraVencedores(String previsao) {
+		int vencedores = 0;
+		for (Aposta a : apostas) {
+			if (a.getPrevisao().equals(previsao)) {
+				vencedores += 1;
+			}
+		}
+		return vencedores;
+	}
+
+	public int getValorAdquirido() {
+		return valorAdquirido;
 	}
 
 	@Override
@@ -84,11 +112,4 @@ public class Cenario {
 		return true;
 	}
 
-	public void concretizaCenario(boolean ocorreu) {
-		if (ocorreu) {
-			this.estado = Estado.OCORREU;
-		} else {
-			this.estado = Estado.NAO_OCORREU;
-		}
-	}
 }
