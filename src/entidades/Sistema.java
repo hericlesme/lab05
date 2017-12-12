@@ -68,7 +68,7 @@ public class Sistema {
 
 	public int caixaCenario(int cenario) {
 		Cenario c = cenarios.get(cenario);
-		return (int) (c.valorTotalDeAposta() - c.getValorAdquirido() * this.taxa);
+		return (int) ((c.valorTotalDeAposta() - c.getValorAdquirido()) * this.taxa);
 	}
 
 	public int totalRateioCenario(int cenario) {

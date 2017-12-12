@@ -1,19 +1,19 @@
 package entidades;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Cenario {
 	private int numeracao;
 	private Estado estado;
 	private String descricao;
 	private int valorAdquirido;
-	private HashSet<Aposta> apostas;
+	private ArrayList<Aposta> apostas;
 
 	public Cenario(int numeracao, String descricao) {
 		this.valorAdquirido = 0;
 		this.numeracao = numeracao;
 		this.descricao = descricao;
-		this.apostas = new HashSet<>();
+		this.apostas = new ArrayList<>();
 		this.estado = Estado.NAO_FINALIZADO;
 	}
 
