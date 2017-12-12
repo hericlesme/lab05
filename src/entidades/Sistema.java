@@ -1,25 +1,25 @@
 package entidades;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Sistema {
 	private int caixa;
 	private double taxa;
-	private int numeracao;
-	private HashMap<Integer, Cenario> cenarios;
+	private ArrayList<Cenario> cenarios;
 
 	public Sistema() {
 		this.taxa = 0;
-		this.numeracao = 1;
-		this.cenarios = new HashMap<>();
+		this.cenarios = new ArrayList<>();
 	}
 
-	public int getNumeracao() {
-		return numeracao;
-	}
 	public int getCaixa() {
 		return caixa;
 	}
+	
+	public int getNumeracao() {
+		return cenarios.size();
+	}
+	
 	public void setCaixa(int caixa) {
 		this.caixa = caixa;
 	}
@@ -29,8 +29,7 @@ public class Sistema {
 	}
 
 	public void cadastrarCenario(String descricao) {
-		cenarios.put(this.numeracao, new Cenario(this.numeracao, descricao));
-		numeracao++;
+		cenarios.add(this.cenarios.size() + 1, new Cenario(descricao));
 	}
 
 	public String exibirCenario(int cenario) {
@@ -39,8 +38,8 @@ public class Sistema {
 
 	public String exibirCenarios() {
 		String retorno = "";
-		for (int i : cenarios.keySet()) {
-			retorno += cenarios.get(i).toString();
+		for (int i = 0; i < cenarios.size(); i++) {
+			retorno +=  i + 1 + " - " + cenarios.get(i).toString();
 		}
 		return retorno;
 	}
