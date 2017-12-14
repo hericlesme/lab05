@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Cenario {
 	private Estado estado;
 	private String descricao;
-	private int valorAdquirido;
 	private int caixa;
 	private ArrayList<Aposta> apostas;
 
@@ -14,7 +13,6 @@ public class Cenario {
 			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
 		}
 		
-		this.valorAdquirido = 0;
 		this.caixa = 0;
 		this.descricao = descricao;
 		this.apostas = new ArrayList<>();
@@ -48,17 +46,17 @@ public class Cenario {
 	public void concretizaCenario(boolean ocorreu) {
 		if (ocorreu) {
 			this.estado = Estado.OCORREU;
-			this.valorAdquirido += calculaValorAdquirido("VAI ACONTECER");
+			this.caixa += calculaCaixa("VAI ACONTECER");
 		} else {
 			this.estado = Estado.NAO_OCORREU;
-			this.valorAdquirido += calculaValorAdquirido("N VAI ACONTECER");
+			this.caixa += calculaCaixa("N VAI ACONTECER");
 		}
 	}
 
-	private int calculaValorAdquirido(String previsao) {
+	private int calculaCaixa(String previsao) {
 		int total = 0;
 		for (Aposta i : apostas) {
-			if (i.getPrevisao().equals(previsao)) {
+			if (!(i.getPrevisao().equals(previsao))) {
 				total += i.getValor();
 			}
 		}
@@ -85,8 +83,8 @@ public class Cenario {
 		return vencedores;
 	}
 
-	public int getValorAdquirido() {
-		return valorAdquirido;
+	public int getCaixa() {
+		return caixa;
 	}
 
 	@Override

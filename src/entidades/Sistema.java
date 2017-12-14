@@ -93,16 +93,16 @@ public class Sistema {
 
 	public void fecharAposta(int cenario, boolean ocorreu) {
 		cenarios.get(cenario - 1).concretizaCenario(ocorreu);
-		this.caixa += caixaCenario(cenario) * 100;
+		this.caixa += caixaCenario(cenario);
 	}
 
 	public int caixaCenario(int cenario) {
 		Cenario c = cenarios.get(cenario - 1);
-		return (int) ((c.valorTotalDeAposta() - c.getValorAdquirido()) * this.taxa);
+		return (int) (c.getCaixa() * this.taxa);
 	}
 
 	public int totalRateioCenario(int cenario) {
 		Cenario c = cenarios.get(cenario - 1);
-		return (int) c.getValorAdquirido() / c.calculaQtdVencedores();
+		return (int) c.getCaixa() - caixaCenario(cenario);
 	}
 }
