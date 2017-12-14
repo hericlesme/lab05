@@ -19,6 +19,10 @@ public class Cenario {
 		this.estado = Estado.NAO_FINALIZADO;
 	}
 
+	public Estado getEstado() {
+		return this.estado;
+	}
+	
 	public void cadastraAposta(String apostador, int valor, String previsao) {
 		apostas.add(new Aposta(apostador, valor, previsao));
 	}
