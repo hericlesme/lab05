@@ -1,6 +1,15 @@
 package entidades;
 
+import easyaccept.EasyAccept;
+
 public class Facade {
+	
+	
+	public static void main(String[] args) {
+		args = new String[] {"entidades.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt", "acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt"};
+		EasyAccept.main(args);
+	}
+	
 	private Sistema sys;
 
 	public Facade() {
@@ -8,8 +17,7 @@ public class Facade {
 	}
 
 	public void inicializa(int caixa, double taxa) {
-		sys.setCaixa(caixa);
-		sys.setTaxa(taxa);
+		sys.inicializa(caixa, taxa);
 	}
 
 	public int getCaixa() {
@@ -17,8 +25,7 @@ public class Facade {
 	}
 
 	public int cadastrarCenario(String descricao) {
-		sys.cadastrarCenario(descricao);
-		return sys.getNumeracao();
+		return sys.cadastrarCenario(descricao);
 	}
 
 	public String exibirCenario(int cenario) {

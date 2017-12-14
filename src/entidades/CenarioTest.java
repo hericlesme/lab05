@@ -2,7 +2,6 @@ package entidades;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.Test;
 
 public class CenarioTest {
@@ -25,4 +24,5 @@ public class CenarioTest {
 		assertTrue(cenario.totalDeApostas() == 2);
 	}
 
+	
 }

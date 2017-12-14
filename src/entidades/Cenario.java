@@ -6,10 +6,16 @@ public class Cenario {
 	private Estado estado;
 	private String descricao;
 	private int valorAdquirido;
+	private int caixa;
 	private ArrayList<Aposta> apostas;
 
 	public Cenario(String descricao) {
+		if (descricao.trim().equals("")) {
+			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
+		}
+		
 		this.valorAdquirido = 0;
+		this.caixa = 0;
 		this.descricao = descricao;
 		this.apostas = new ArrayList<>();
 		this.estado = Estado.NAO_FINALIZADO;
@@ -58,7 +64,7 @@ public class Cenario {
 		}
 		return total;
 	}
-
+	
 	public int calculaQtdVencedores() {
 		if (this.estado.equals(Estado.NAO_OCORREU)) {
 			return procuraVencedores("N VAI ACONTECER");
