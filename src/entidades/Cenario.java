@@ -39,7 +39,7 @@ public class Cenario {
 		return apostas.size();
 	}
 
-	public int valorTotalDeAposta() {
+	public int valorTotalDeApostas() {
 		int soma = 0;
 		for (Aposta i : apostas) {
 			soma += i.getValor();
@@ -65,26 +65,6 @@ public class Cenario {
 			}
 		}
 		return total;
-	}
-	
-	public int calculaQtdVencedores() {
-		if (this.estado.equals(Estado.NAO_OCORREU)) {
-			return procuraVencedores("N VAI ACONTECER");
-		} else if (this.estado.equals(Estado.OCORREU)) {
-			return procuraVencedores("VAI ACONTECER");
-		} else {
-			return 0;
-		}
-	}
-
-	private int procuraVencedores(String previsao) {
-		int vencedores = 0;
-		for (Aposta a : apostas) {
-			if (a.getPrevisao().equals(previsao)) {
-				vencedores += 1;
-			}
-		}
-		return vencedores;
 	}
 
 	public int getCaixa() {

@@ -49,18 +49,21 @@ public class Sistema {
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
 		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro no cadastro de aposta: Cenario nao cadastrado");
+		
 		cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
 	}
 
 	public int valorTotalDeApostas(int cenario) {
 		verificaCenarioInvalido(cenario, "Erro na consulta do valor total de apostas: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro na consulta do valor total de apostas: Cenario nao cadastrado");
-		return cenarios.get(cenario - 1).valorTotalDeAposta();
+		
+		return cenarios.get(cenario - 1).valorTotalDeApostas();
 	}
 
 	public int totalDeApostas(int cenario) {
 		verificaCenarioInvalido(cenario, "Erro na consulta do total de apostas: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro na consulta do total de apostas: Cenario nao cadastrado");
+		
 		return cenarios.get(cenario - 1).totalDeApostas();
 	}
 
@@ -71,10 +74,12 @@ public class Sistema {
 	public void fecharAposta(int cenario, boolean ocorreu) {
 		verificaCenarioInvalido(cenario, "Erro ao fechar aposta: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro ao fechar aposta: Cenario nao cadastrado");
+		
 		Cenario c = cenarios.get(cenario - 1);
 		if (!c.getEstado().equals(Estado.NAO_FINALIZADO)) {
 			throw new IllegalArgumentException("Erro ao fechar aposta: Cenario ja esta fechado");
 		}
+		
 		c.concretizaCenario(ocorreu);
 		this.caixa += caixaCenario(cenario);
 	}
@@ -114,3 +119,4 @@ public class Sistema {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
+}
