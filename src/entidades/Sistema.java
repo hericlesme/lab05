@@ -41,7 +41,7 @@ public class Sistema {
 	public String exibirCenarios() {
 		String retorno = "";
 		for (int i = 0; i < cenarios.size(); i++) {
-			retorno += i + 1 + " - " + cenarios.get(i).toString();
+			retorno += i + 1 + " - " + cenarios.get(i).toString() + System.lineSeparator();
 		}
 		return retorno;
 	}

@@ -2,21 +2,26 @@ package entidades;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class CenarioTest {
-	Cenario cenario;
+	Cenario cenario, outroCenario;
 
+	@Before
+	public void inicializaCenario() {
+		cenario = new Cenario("O teste vai dar certo");
+	}
+	
 	@Test
 	public void testConstrutor() {
-		assertTrue(cenario == null);
-		cenario = new Cenario("A BARATA MATOU HEMI");
+		assertTrue(outroCenario == null);
+		outroCenario = new Cenario("A BARATA MATOU HEMI");
 		assertFalse(cenario == null);
 	}
 
 	@Test
 	public void testCadastraAposta() {
-		cenario = new Cenario("HEMI FOI INCENDIADA PELA BARATA");
 		assertTrue(cenario.totalDeApostas() == 0);
 
 		cenario.cadastraAposta("Hue", 666666, "VAI ACONTECER");
@@ -29,8 +34,6 @@ public class CenarioTest {
 	@Test
 	public void testConcretizaCenario() {
 		// Testes também se aplicam ao método getEstado() e getCaixa().
-		cenario = new Cenario("Os testes tao certo");
-
 		assertEquals(Estado.NAO_FINALIZADO, cenario.getEstado());
 
 		cenario.cadastraAposta("Kaka", 2000, "VAI ACONTECER");
@@ -52,20 +55,17 @@ public class CenarioTest {
 
 	@Test
 	public void testGetCaixaCenarioNaoFinalizado() {
-		cenario = new Cenario("Isto é util.");
 		assertTrue(cenario.getCaixa() == 0);
 
 	}
 
 	@Test
 	public void testExibeApostasSemApostas() {
-		cenario = new Cenario("Sei la ohm");
 		assertEquals("", cenario.exibeApostas());
 	}
 
 	@Test
 	public void testExibeApostas() {
-		cenario = new Cenario("Eu to cansado ja meu");
 		cenario.cadastraAposta("Fulano", 1, "VAI ACONTECER");
 		assertEquals("Fulano - R$0,01 - VAI ACONTECER" + System.lineSeparator(), cenario.exibeApostas());
 
@@ -77,7 +77,6 @@ public class CenarioTest {
 
 	@Test
 	public void testTotalDeApostas() {
-		cenario = new Cenario("Gauds me adota");
 		assertTrue(cenario.totalDeApostas() == 0);
 		cenario.cadastraAposta("Fulano", 1, "VAI ACONTECER");
 		assertTrue(cenario.totalDeApostas() == 1);
@@ -87,7 +86,6 @@ public class CenarioTest {
 
 	@Test
 	public void testValorTotalDeApostas() {
-		cenario = new Cenario("Gauds me nota");
 		assertTrue(cenario.valorTotalDeApostas() == 0);
 		cenario.cadastraAposta("Fulano", 1, "VAI ACONTECER");
 		assertTrue(cenario.valorTotalDeApostas() == 1);
@@ -103,6 +101,52 @@ public class CenarioTest {
 		assertEquals("Me nota ane - Finalizado (ocorreu)", cenario.toString());
 		cenario.concretizaCenario(false);
 		assertEquals("Me nota ane - Finalizado (não ocorreu)", cenario.toString());
-		
-			}
+
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDescricaoVazia() {
+		cenario = new Cenario("");
+		cenario = new Cenario("       ");
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testDescricaoNula() {
+		cenario = new Cenario(null);
+	}
+	
+	@Test(expected = NullPointerException.class)
+	public void testCadastraApostaApostadorNulo() {
+		cenario.cadastraAposta(null, 156513641, "N VAI ACONTECER");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCadastraApostaApostadorInvalido() {
+		cenario.cadastraAposta("", 10000, "N VAI ACONTECER");
+		cenario.cadastraAposta("       ", 10000, "N VAI ACONTECER");
+
+	}
+
+	@Test(expected = NullPointerException.class)
+	public void testCadastraApostaPrevisaoNula() {
+		cenario.cadastraAposta("Hemi", 15641, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCadastraApostaPrevisaoVazia() {
+		cenario.cadastraAposta("Anjo", 123456, "   ");
+		cenario.cadastraAposta("Querubim", 123456, "");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCadastraApostaPrevisaoInvalida() {
+		cenario.cadastraAposta("Arcanjo", 123456, "HAUSHAUHSN");
+		cenario.cadastraAposta("Arcanjo", 123456, "N VAI ACONTECR");
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCadastraApostaValorInvalido() {
+		cenario.cadastraAposta("Gauds", -1, "VAI ACONTECER");
+	}
+
 }
