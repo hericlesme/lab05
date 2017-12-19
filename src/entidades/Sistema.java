@@ -68,6 +68,8 @@ public class Sistema {
 	}
 
 	public String exibeApostas(int cenario) {
+		verificaCenarioInvalido(cenario, "Erro na consulta das apostas: Cenario invalido");
+		verificaCenarioExistente(cenario, "Erro na consulta das apostas: Cenario nao cadastrado");
 		return cenarios.get(cenario - 1).exibeApostas();
 	}
 
@@ -105,7 +107,7 @@ public class Sistema {
 					"Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 		}
 
-		return (int) c.getCaixa() - caixaCenario(cenario);
+		return c.getCaixa() - caixaCenario(cenario);
 	}
 
 	private void verificaCenarioInvalido(int cenario, String mensagem) {

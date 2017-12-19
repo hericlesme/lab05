@@ -2,6 +2,11 @@ package entidades;
 
 import java.util.ArrayList;
 
+/**
+ * Representação de Um Cenário. Cada Cenário possui 
+ * @author hericlesegs
+ *
+ */
 public class Cenario {
 	private Estado estado;
 	private String descricao;

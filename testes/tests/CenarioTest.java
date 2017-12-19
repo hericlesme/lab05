@@ -1,9 +1,12 @@
-package entidades;
+package tests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import entidades.Cenario;
+import entidades.Estado;
 
 public class CenarioTest {
 	Cenario cenario, outroCenario;
@@ -103,7 +106,7 @@ public class CenarioTest {
 		assertEquals("Me nota ane - Finalizado (não ocorreu)", cenario.toString());
 
 	}
-
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testDescricaoVazia() {
 		cenario = new Cenario("");
