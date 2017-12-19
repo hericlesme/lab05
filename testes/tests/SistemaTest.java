@@ -6,15 +6,29 @@ import org.junit.Before;
 import org.junit.Test;
 import entidades.Sistema;
 
+/**
+ * Teste da classe Sistema.
+ * 
+ * Lab05 - Laboratório de Programação II
+ * 
+ * @author Héricles Emanuel - 117110647
+ *
+ */
 public class SistemaTest {
 
 	Sistema sys, outroSys;
 
+	/**
+	 * Inicializa o Sistema sys.
+	 */
 	@Before
 	public void inicializaSistema() {
 		sys = new Sistema();
 	}
 
+	/**
+	 * Testa o construtor de um sistema.
+	 */
 	@Test
 	public void testConstrutor() {
 		assertTrue(outroSys == null);
@@ -22,6 +36,9 @@ public class SistemaTest {
 		assertFalse(outroSys == null);
 	}
 
+	/**
+	 * Testa o inicializador do sistema, com taxa e caixa.
+	 */
 	@Test
 	public void testInicializaSistema() {
 		// Teste também se aplica ao método getCaixa().
@@ -30,6 +47,9 @@ public class SistemaTest {
 		assertEquals(1000, sys.getCaixa());
 	}
 
+	/**
+	 * Testa o cadastro de um cenário, que retorna um inteiro com sua numeração.
+	 */
 	@Test
 	public void testCadastraCenario() {
 		assertEquals("", sys.exibirCenarios());
@@ -37,6 +57,9 @@ public class SistemaTest {
 		assertEquals(2, sys.cadastrarCenario("ne nao?"));
 	}
 
+	/**
+	 * Testa a exibição de um cenário não finalizado.
+	 */
 	@Test
 	public void testExibirCenarioNaoFinalizado() {
 		sys.cadastrarCenario("cc > eletrica");
@@ -46,6 +69,9 @@ public class SistemaTest {
 		assertEquals("2 - MonitoriaEhVida - Nao finalizado", sys.exibirCenario(2));
 	}
 
+	/**
+	 * Testa a exibição de um cenário ocorrido.
+	 */
 	@Test
 	public void testExibirCenarioOcorrido() {
 		sys.cadastrarCenario("cc > eletrica");
@@ -57,6 +83,9 @@ public class SistemaTest {
 		assertEquals("2 - MonitoriaEhVida - Finalizado (ocorreu)", sys.exibirCenario(2));
 	}
 
+	/**
+	 * Testa a exibição de um cenário não ocorrido.
+	 */
 	@Test
 	public void testExibirCenarioNaoOcorrido() {
 		sys.cadastrarCenario("cc > eletrica");
@@ -68,11 +97,17 @@ public class SistemaTest {
 		assertEquals("2 - MonitoriaEhVida - Finalizado (não ocorreu)", sys.exibirCenario(2));
 	}
 
+	/**
+	 * Testa o método de exibição de cenarios, quando nenhum está cadastrado.
+	 */
 	@Test
 	public void testExibirCenariosSemCenarios() {
 		assertEquals("", sys.exibirCenarios());
 	}
 
+	/**
+	 * Testa o método de exibição de cenarios, à medida que se adicionam cenários..
+	 */
 	@Test
 	public void testExibirCenarios() {
 		sys.cadastrarCenario("Isto é um cenário");
@@ -92,6 +127,9 @@ public class SistemaTest {
 				sys.exibirCenarios());
 	}
 
+	/**
+	 * Testa o cadastro de uma aposta em um cenário.
+	 */
 	@Test
 	public void testCadastrarAposta() {
 		sys.cadastrarCenario("Eu sou o numero 1");
@@ -100,12 +138,18 @@ public class SistemaTest {
 		assertEquals(1, sys.totalDeApostas(1));
 	}
 
+	/**
+	 * Testa o valorTotalDeApostas quando é zero.
+	 */
 	@Test
 	public void testValorTotalDeApostasZerado() {
 		sys.cadastrarCenario("Exemplou");
 		assertEquals(0, sys.valorTotalDeApostas(1));
 	}
 
+	/**
+	 * Testa o valor total das apostas.
+	 */
 	@Test
 	public void testValorTotalDeApostas() {
 		sys.cadastrarCenario("Exemplou");
@@ -116,12 +160,18 @@ public class SistemaTest {
 		assertEquals(15000, sys.valorTotalDeApostas(1));
 	}
 
+	/**
+	 * Testa o Total de apostas quando é zero.
+	 */
 	@Test
 	public void testTotalDeApostaZeroApostas() {
 		sys.cadastrarCenario("Eu vejo!");
 		assertEquals(0, sys.totalDeApostas(1));
 	}
 
+	/**
+	 * Testa o Total de apostas enquanto se adicionam.
+	 */
 	@Test
 	public void testTotalDeApostas() {
 		sys.cadastrarCenario("Ele vê");
@@ -133,6 +183,9 @@ public class SistemaTest {
 		assertEquals(3, sys.totalDeApostas(1));
 	}
 
+	/**
+	 * Testa a exibição de apostas quando não há nenhuma.
+	 */
 	@Test
 	public void testExibeApostasSemAposta() {
 		sys.cadastrarCenario("henrique e chato");
@@ -140,6 +193,9 @@ public class SistemaTest {
 
 	}
 
+	/**
+	 * Testa a exibição de apostas cadastradas num cenário.
+	 */
 	@Test
 	public void testExibeApostas() {
 		sys.cadastrarCenario("Hemi e um amorzin");
@@ -158,6 +214,10 @@ public class SistemaTest {
 
 	}
 
+	/**
+	 * Testa a concretização de um cenário, verificando o incremento no caixa do
+	 * sistema e o rateio total.
+	 */
 	@Test
 	public void testFecharApostas() {
 		sys.cadastrarCenario("yoda > all");
@@ -172,6 +232,9 @@ public class SistemaTest {
 		assertEquals(900, sys.totalRateioCenario(1));
 	}
 
+	/**
+	 * Testa a concretização de um cenário quando a taxa é zero.
+	 */
 	@Test
 	public void testFecharApostasTaxaZero() {
 		sys.cadastrarCenario("da nada");
@@ -187,6 +250,9 @@ public class SistemaTest {
 
 	}
 
+	/**
+	 * Testa o método caixaCenario.
+	 */
 	@Test
 	public void testCaixaCenario() {
 		sys.inicializa(0, 0.1);
@@ -198,6 +264,9 @@ public class SistemaTest {
 
 	}
 
+	/**
+	 * Testa o método que retorna a quantidade a ser dividida entre os apostadores.
+	 */
 	@Test
 	public void testTotalRateioCenario() {
 		sys.inicializa(0, 0.2);
@@ -218,43 +287,67 @@ public class SistemaTest {
 
 	}
 
+	/**
+	 * Testa a inicialização quando o caixa é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testInicializaCaixaInvalido() {
 		sys.inicializa(-1, 0.1);
 	}
 
+	/**
+	 * Testa a inicialização quando a taxa é inválida.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testInicializaTaxaInvalida() {
 		sys.inicializa(0, -1);
 	}
 
+	/**
+	 * Testa o cadastro de um Cenario com a descrição vazia.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraCenarioDescInvalida() {
 		sys.cadastrarCenario("");
 		sys.cadastrarCenario("     ");
 	}
 
+	/**
+	 * Testa o cadastro de um Cenario com a descrição nula.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testCadastraCenarioDescNula() {
 		sys.cadastrarCenario(null);
 	}
 
+	/**
+	 * Testa a exibição de um cenário inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testExibirCenarioInvalido() {
 		sys.exibirCenario(-1);
 	}
 
+	/**
+	 * Testa a exibição de um Cenário não cadastrado.
+	 */
 	@Test(expected = IllegalArgumentException.class)
-	public void testCadastraCenarioNaoCadastrado() {
+	public void testExibeCenarioNaoCadastrado() {
 		sys.exibirCenario(1);
 	}
 
+	/**
+	 * Testa o cadastro de uma aposta com o apostador nulo.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testCadastraApostaApostadorNulo() {
 		sys.cadastrarCenario("Teste");
 		sys.cadastrarAposta(1, null, 156513641, "N VAI ACONTECER");
 	}
 
+	/*
+	 * Testa o cadastro de uma aposta quando o apostador é vazio.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaApostadorInvalido() {
 		sys.cadastrarCenario("Teste");
@@ -263,12 +356,18 @@ public class SistemaTest {
 
 	}
 
+	/*
+	 * Testa o cadastro de uma aposta quando a previsão é nula.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testCadastraApostaPrevisaoNula() {
 		sys.cadastrarCenario("Teste");
 		sys.cadastrarAposta(1, "Hemi", 15641, null);
 	}
 
+	/*
+	 * Testa o cadastro de uma aposta quando a previsão é vazia.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaPrevisaoVazia() {
 		sys.cadastrarCenario("Teste");
@@ -276,6 +375,9 @@ public class SistemaTest {
 		sys.cadastrarAposta(1, "Querubim", 123456, "");
 	}
 
+	/*
+	 * Testa o cadastro de uma aposta quando a previsão é inválida.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaPrevisaoInvalida() {
 		sys.cadastrarCenario("Teste");
@@ -283,42 +385,66 @@ public class SistemaTest {
 		sys.cadastrarAposta(1, "Arcanjo", 123456, "N VAI ACONTECR");
 	}
 
+	/*
+	 * Testa o cadastro de uma aposta quando o valor é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaValorInvalido() {
 		sys.cadastrarCenario("Teste");
 		sys.cadastrarAposta(1, "Gauds", -1, "VAI ACONTECER");
 	}
 
+	/**
+	 * Testa o totalDeApostas quando o cenário é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testTotalDeApostasCenarioInvalido() {
 		sys.totalDeApostas(-1);
 	}
 
+	/**
+	 * Testa o totalDeApostas quando o cenário é inexistente.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testTotalDeApostasCenarioInexistente() {
 		sys.totalDeApostas(1);
 	}
 
+	/**
+	 * Testa o ExibeApostas quando o cenário é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testExibeApostasCenarioInvalido() {
 		sys.exibeApostas(-1);
 	}
 
+	/**
+	 * Testa o ExibeApostas quando o cenário é inexistente.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testExibeApostasCenarioInexistente() {
 		sys.exibeApostas(1);
 	}
 
+	/**
+	 * Testa o FecharApostas quando o cenário é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFecharApostaCenarioInvalido() {
 		sys.valorTotalDeApostas(-1);
 	}
 
+	/**
+	 * Testa o fecharAposta quando o cenário é inexistente.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFecharApostaCenarioInexistente() {
 		sys.valorTotalDeApostas(1);
 	}
 
+	/**
+	 * Testa o fecharAposta num cenário já fechado.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testFecharApostaJaFechada() {
 		sys.cadastrarCenario("ola");
@@ -326,21 +452,33 @@ public class SistemaTest {
 		sys.fecharAposta(1, false);
 	}
 
+	/**
+	 * Testa o caixaCenario quando o cenário é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCaixaCenarioCenarioInvalido() {
 		sys.caixaCenario(-1);
 	}
 
+	/**
+	 * Testa o caixaCenario quando o cenário é inexistente.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCaixaCenarioCenarioInexistente() {
 		sys.caixaCenario(1);
 	}
 
+	/**
+	 * Testa o totalRateioCenario quando o cenário é inválido.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testTotalRateioCenarioInvalido() {
 		sys.totalRateioCenario(-1);
 	}
 
+	/**
+	 * Testa o totalRateioCenario quando o cenário é inexistente.
+	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testTotalRateioCenarioInexistente() {
 		sys.totalRateioCenario(1);
