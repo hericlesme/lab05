@@ -10,10 +10,10 @@ import java.util.ArrayList;
  *
  */
 public class Cenario {
-	private Estado estado;
-	private String descricao;
-	private int caixa;
-	private ArrayList<Aposta> apostas;
+	protected Estado estado;
+	protected String descricao;
+	protected int caixa;
+	protected ArrayList<Aposta> apostas;
 
 	/**
 	 * Constrói um cenário a partir de uma descrição, que não pode ser nula ou
@@ -139,6 +139,10 @@ public class Cenario {
 	 */
 	public int getCaixa() {
 		return caixa;
+	}
+	
+	public int totalRateioCenario(double taxa) {
+		return (int) (this.caixa - this.caixa * taxa);
 	}
 
 	/**

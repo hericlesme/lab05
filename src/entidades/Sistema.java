@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Sistema {
 	private int caixa;
 	private double taxa;
-	private ArrayList<Cenario> cenarios;
+	ArrayList<Cenario> cenarios;
 
 	/**
 	 * Constrói um sistema, com taxa e caixa zerado, e inicializa sua lista de
@@ -66,6 +66,11 @@ public class Sistema {
 	 */
 	public int cadastrarCenario(String descricao) {
 		cenarios.add(new Cenario(descricao));
+		return cenarios.size();
+	}
+
+	public int cadastrarCenario(String descricao, int bonus) {
+		cenarios.add(new CenarioBonus(descricao, bonus));
 		return cenarios.size();
 	}
 
@@ -147,8 +152,8 @@ public class Sistema {
 	/**
 	 * Exibe a representação em string das apostas de um cenário, uma a cada linha.
 	 * 
-	 * @param a
-	 *            numeração do cenário.
+	 * @param cenario
+	 *            a numeração do cenário.
 	 * @return uma string com as apostas no cenário.
 	 */
 	public String exibeApostas(int cenario) {
@@ -191,7 +196,6 @@ public class Sistema {
 		verificaCenarioInvalido(cenario, "Erro na consulta do caixa do cenario: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro na consulta do caixa do cenario: Cenario nao cadastrado");
 		Cenario c = cenarios.get(cenario - 1);
-
 		if (c.getEstado().equals(Estado.NAO_FINALIZADO)) {
 			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
 		}
@@ -215,7 +219,7 @@ public class Sistema {
 					"Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
 		}
 
-		return c.getCaixa() - caixaCenario(cenario);
+		return c.totalRateioCenario(this.taxa);
 	}
 
 	/**
