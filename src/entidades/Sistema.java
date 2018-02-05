@@ -65,7 +65,7 @@ public class Sistema {
 	 * @return a numeração do cenário.
 	 */
 	public int cadastrarCenario(String descricao) {
-		cenarios.add(new Cenario(descricao));
+		cenarios.add(new CenarioDefault(descricao));
 		return cenarios.size();
 	}
 

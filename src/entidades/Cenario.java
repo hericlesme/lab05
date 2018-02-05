@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Héricles Emanuel - 117110647
  *
  */
-public class Cenario {
+public abstract class Cenario {
 	protected Estado estado;
 	protected String descricao;
 	protected int caixa;
@@ -141,10 +141,8 @@ public class Cenario {
 		return caixa;
 	}
 	
-	public int totalRateioCenario(double taxa) {
-		return (int) (this.caixa - this.caixa * taxa);
-	}
-
+	public abstract int totalRateioCenario(double taxa); 
+	
 	/**
 	 * Retorna uma representação em String de um Cenário. A representação segue o
 	 * formato: "Descrição - estado".
@@ -152,7 +150,5 @@ public class Cenario {
 	 * @return a string que representa o Cenário.
 	 */
 	@Override
-	public String toString() {
-		return this.descricao + " - " + this.estado.getValor();
-	}
+	public abstract String toString();
 }

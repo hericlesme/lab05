@@ -8,13 +8,13 @@ public class CenarioBonus extends Cenario {
 		super(descricao);
 		this.bonus = bonus;
 	}
-	
-	public  int totalRateioCenario(double taxa) {
-		return super.totalRateioCenario(taxa) + this.bonus;
+
+	public int totalRateioCenario(double taxa) {
+		return (int) ((this.caixa - this.caixa * taxa) + this.bonus);
 	}
 
 	@Override
 	public String toString() {
-		return super.toString() + "- R$ " + String.format("%.2f", ((double) this.bonus));
+		return this.descricao + " - " + this.estado.getValor() + "- R$ " + String.format("%.2f", ((double) this.bonus));
 	}
 }
