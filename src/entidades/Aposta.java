@@ -11,7 +11,7 @@ public class Aposta {
 	private String apostador;
 	private int valor;
 	private String previsao;
-
+	
 	/**
 	 * Construtor de uma aposta. Constrói a aposta a partir de um apostador, valor,
 	 * e previsão.
