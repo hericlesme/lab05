@@ -14,6 +14,7 @@ public abstract class Cenario {
 	protected String descricao;
 	protected int caixa;
 	protected ArrayList<Aposta> apostas;
+	protected ArrayList<ApostaAssegurada> apostasAsseguradas;
 
 	/**
 	 * Constrói um cenário a partir de uma descrição, que não pode ser nula ou
@@ -23,7 +24,6 @@ public abstract class Cenario {
 	 *            a descrição do cenario.
 	 */
 	public Cenario(String descricao) {
-
 		if (descricao == null) {
 			throw new NullPointerException("Erro no cadastro de cenario: Descricao nao pode ser nula");
 		}
@@ -35,6 +35,7 @@ public abstract class Cenario {
 		this.descricao = descricao;
 		this.apostas = new ArrayList<>();
 		this.estado = Estado.NAO_FINALIZADO;
+
 	}
 
 	/**
@@ -61,6 +62,16 @@ public abstract class Cenario {
 		apostas.add(new Aposta(apostador, valor, previsao));
 	}
 
+	public int cadastraApostaSeguraValor(String apostador, int valor, String previsao, int valorAssegurado) {
+		apostas.add(new Aposta(apostador, valor, previsao, valorAssegurado));
+		return apostas.size();
+	}
+
+	public int cadastraApostaSeguraTaxa(String apostador, int valor, String previsao, double taxa) {
+		apostas.add(new Aposta(apostador, valor, previsao, taxa));
+		return apostas.size();
+	}
+
 	/**
 	 * Exibe a representação em string das apostas do cenário, uma a cada linha.
 	 * 
@@ -80,7 +91,7 @@ public abstract class Cenario {
 	 * @return um inteiro que indica a quantidade de apostas de um cenário.
 	 */
 	public int totalDeApostas() {
-		return apostas.size();
+		return apostas.size() + apostasAsseguradas.size();
 	}
 
 	/**
@@ -140,9 +151,9 @@ public abstract class Cenario {
 	public int getCaixa() {
 		return caixa;
 	}
-	
-	public abstract int totalRateioCenario(double taxa); 
-	
+
+	public abstract int totalRateioCenario(double taxa);
+
 	/**
 	 * Retorna uma representação em String de um Cenário. A representação segue o
 	 * formato: "Descrição - estado".
