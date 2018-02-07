@@ -9,9 +9,9 @@ package entidades;
  */
 public class Aposta {
 	private String apostador;
-	private int valor;
 	private String previsao;
 	private Seguro seguro;
+	private int valor;
 
 	/**
 	 * Construtor de uma aposta. Constrói a aposta a partir de um apostador, valor,
@@ -68,6 +68,9 @@ public class Aposta {
 		return valor;
 	}
 
+	public int getSeguro() {
+		return seguro.getValor();
+	}
 	/**
 	 * Método get para a previsão da aposta.
 	 * 
@@ -139,5 +142,13 @@ public class Aposta {
 		if (!(previsao.equals("N VAI ACONTECER") || previsao.equals("VAI ACONTECER"))) {
 			throw new IllegalArgumentException("Erro no cadastro de aposta"  + tipoSeguro + ": Previsao invalida");
 		}
+	}
+
+	public void alterarSeguroValor(int valorAssegurado) {
+		this.seguro = new SeguroValor(valorAssegurado);
+	}
+	
+	public void alterarSeguroTaxa(double taxa) {
+		this.seguro = new SeguroTaxa(this.valor, taxa);
 	}
 }

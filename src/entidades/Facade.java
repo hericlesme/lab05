@@ -185,4 +185,12 @@ public class Facade {
 	public int getTotalRateioCenario(int cenario) {
 		return sys.totalRateioCenario(cenario);
 	}
+	
+	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
+		return sys.alterarSeguroValor(cenario, apostaAssegurada, valor);
+	}
+	
+	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
+		return sys.alterarSeguroTaxa(cenario, apostaAssegurada, taxa);
+	}
 }

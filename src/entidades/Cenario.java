@@ -1,6 +1,7 @@
 package entidades;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Representação de Um Cenário. Cada Cenário possui um estado, descrição, caixa
@@ -14,7 +15,6 @@ public abstract class Cenario {
 	protected String descricao;
 	protected int caixa;
 	protected ArrayList<Aposta> apostas;
-	protected ArrayList<ApostaAssegurada> apostasAsseguradas;
 
 	/**
 	 * Constrói um cenário a partir de uma descrição, que não pode ser nula ou
@@ -78,11 +78,7 @@ public abstract class Cenario {
 	 * @return uma string com as apostas no cenário.
 	 */
 	public String exibeApostas() {
-		String retorno = "";
-		for (Aposta i : apostas) {
-			retorno += i.toString() + System.lineSeparator();
-		}
-		return retorno;
+		return apostas.stream().map(Aposta::toString).collect(Collectors.joining(System.lineSeparator()));
 	}
 
 	/**
@@ -91,7 +87,7 @@ public abstract class Cenario {
 	 * @return um inteiro que indica a quantidade de apostas de um cenário.
 	 */
 	public int totalDeApostas() {
-		return apostas.size() + apostasAsseguradas.size();
+		return apostas.size();
 	}
 
 	/**
@@ -100,11 +96,7 @@ public abstract class Cenario {
 	 * @return um inteiro, com a soma do valor todas as apostas do cenario.
 	 */
 	public int valorTotalDeApostas() {
-		int soma = 0;
-		for (Aposta i : apostas) {
-			soma += i.getValor();
-		}
-		return soma;
+		return apostas.stream().mapToInt(Aposta::getValor).sum();
 	}
 
 	/**
@@ -162,4 +154,14 @@ public abstract class Cenario {
 	 */
 	@Override
 	public abstract String toString();
+
+	public int alterarSeguroValor(int apostaAssegurada, int valor) {
+		apostas.get(apostaAssegurada - 1).alterarSeguroValor(valor);
+		return apostaAssegurada;
+	}
+
+	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
+		apostas.get(apostaAssegurada - 1).alterarSeguroTaxa(taxa); 
+		return apostaAssegurada;
+	}
 }

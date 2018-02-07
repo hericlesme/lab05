@@ -70,6 +70,7 @@ public class Sistema {
 	}
 
 	public int cadastrarCenario(String descricao, int bonus) {
+		this.caixa -= bonus;
 		cenarios.add(new CenarioBonus(descricao, bonus));
 		return cenarios.size();
 	}
@@ -124,14 +125,14 @@ public class Sistema {
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
 		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario nao cadastrado");
-
+		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraApostaSeguraTaxa(apostador, valor, previsao, taxa);
 	}
 
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
 		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario nao cadastrado");
-
+		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraApostaSeguraValor(apostador, valor, previsao, valorAssegurado);
 	}
 
@@ -262,5 +263,15 @@ public class Sistema {
 		if (cenario > cenarios.size()) {
 			throw new IllegalArgumentException(mensagem);
 		}
+	}
+
+	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
+		verificaCenarioInvalido(cenario, "Erro na consulta do total de rateio do cenario: Cenario invalido");
+		verificaCenarioExistente(cenario, "Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+		return cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valor);
+	}
+
+	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
+		return cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxa);
 	}
 }
