@@ -122,18 +122,20 @@ public class Sistema {
 		cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
 	}
 
-	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
+	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
+			int custo) {
 		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario nao cadastrado");
 		this.caixa += custo;
-		return cenarios.get(cenario - 1).cadastraApostaSeguraTaxa(apostador, valor, previsao, taxa);
+		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, taxa);
 	}
 
-	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
+	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
+			int valorAssegurado, int custo) {
 		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario invalido");
 		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario nao cadastrado");
 		this.caixa += custo;
-		return cenarios.get(cenario - 1).cadastraApostaSeguraValor(apostador, valor, previsao, valorAssegurado);
+		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, valorAssegurado);
 	}
 
 	/**
