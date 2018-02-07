@@ -197,6 +197,7 @@ public class Sistema {
 
 		c.concretizaCenario(ocorreu);
 		this.caixa += caixaCenario(cenario);
+		this.caixa -= c.getSeguro();
 	}
 
 	/**

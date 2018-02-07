@@ -7,7 +7,7 @@ public class CenarioDefault extends Cenario {
 
 	@Override
 	public int totalRateioCenario(double taxa) {
-		return (int) (this.caixa - this.caixa * taxa);
+		return this.caixa - (int) (this.caixa * taxa);
 	}
 
 	@Override

@@ -62,12 +62,12 @@ public abstract class Cenario {
 		apostas.add(new Aposta(apostador, valor, previsao));
 	}
 
-	public int cadastraApostaSeguraValor(String apostador, int valor, String previsao, int valorAssegurado) {
+	public int cadastraAposta(String apostador, int valor, String previsao, int valorAssegurado) {
 		apostas.add(new Aposta(apostador, valor, previsao, valorAssegurado));
 		return apostas.size();
 	}
 
-	public int cadastraApostaSeguraTaxa(String apostador, int valor, String previsao, double taxa) {
+	public int cadastraAposta(String apostador, int valor, String previsao, double taxa) {
 		apostas.add(new Aposta(apostador, valor, previsao, taxa));
 		return apostas.size();
 	}
@@ -126,13 +126,8 @@ public abstract class Cenario {
 	 * 
 	 */
 	private int calculaCaixa(String previsao) {
-		int total = 0;
-		for (Aposta i : apostas) {
-			if (!(i.getPrevisao().equals(previsao))) {
-				total += i.getValor();
-			}
-		}
-		return total;
+		return apostas.stream().filter(aposta -> !aposta.getPrevisao().equals(previsao)).mapToInt(Aposta::getValor)
+				.sum();
 	}
 
 	/**
@@ -142,6 +137,10 @@ public abstract class Cenario {
 	 */
 	public int getCaixa() {
 		return caixa;
+	}
+
+	public int getSeguro() {
+		return apostas.stream().mapToInt(Aposta::getSeguro).sum();
 	}
 
 	public abstract int totalRateioCenario(double taxa);
@@ -161,7 +160,7 @@ public abstract class Cenario {
 	}
 
 	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
-		apostas.get(apostaAssegurada - 1).alterarSeguroTaxa(taxa); 
+		apostas.get(apostaAssegurada - 1).alterarSeguroTaxa(taxa);
 		return apostaAssegurada;
 	}
 }
