@@ -6,9 +6,6 @@ public class CenarioBonus extends Cenario {
 
 	public CenarioBonus(String descricao, int bonus) {
 		super(descricao);
-		if (bonus <= 0) {
-			throw new IllegalArgumentException("Erro no cadastro de cenario: Bonus invalido");
-		}
 		this.bonus = bonus;
 	}
 

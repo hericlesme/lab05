@@ -24,13 +24,6 @@ public abstract class Cenario {
 	 *            a descrição do cenario.
 	 */
 	public Cenario(String descricao) {
-		if (descricao == null) {
-			throw new NullPointerException("Erro no cadastro de cenario: Descricao nao pode ser nula");
-		}
-
-		if (descricao.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro de cenario: Descricao nao pode ser vazia");
-		}
 		this.caixa = 0;
 		this.descricao = descricao;
 		this.apostas = new ArrayList<>();

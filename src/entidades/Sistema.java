@@ -1,6 +1,7 @@
 package entidades;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Representação de Um sistema de apostas. Um sistema pode ter vários cenários,
@@ -13,7 +14,8 @@ import java.util.ArrayList;
 public class Sistema {
 	private int caixa;
 	private double taxa;
-	ArrayList<Cenario> cenarios;
+	private Validador validador;
+	private ArrayList<Cenario> cenarios;
 
 	/**
 	 * Constrói um sistema, com taxa e caixa zerado, e inicializa sua lista de
@@ -23,6 +25,7 @@ public class Sistema {
 		this.taxa = 0;
 		this.caixa = 0;
 		this.cenarios = new ArrayList<>();
+		this.validador = new Validador();
 	}
 
 	/**
@@ -35,12 +38,7 @@ public class Sistema {
 	 *            a do sistema a ser inicializado.
 	 */
 	public void inicializa(int caixa, double taxa) {
-		if (caixa < 0) {
-			throw new IllegalArgumentException("Erro na inicializacao: Caixa nao pode ser inferior a 0");
-		}
-		if (taxa < 0) {
-			throw new IllegalArgumentException("Erro na inicializacao: Taxa nao pode ser inferior a 0");
-		}
+		validador.validaInicializacao(caixa, taxa);
 		this.caixa = caixa;
 		this.taxa = taxa;
 	}
@@ -65,11 +63,14 @@ public class Sistema {
 	 * @return a numeração do cenário.
 	 */
 	public int cadastrarCenario(String descricao) {
+		validador.descricaoInvalida(descricao);
 		cenarios.add(new CenarioDefault(descricao));
 		return cenarios.size();
 	}
 
 	public int cadastrarCenario(String descricao, int bonus) {
+		validador.descricaoInvalida(descricao);
+		validador.bonusInvalido(bonus);
 		this.caixa -= bonus;
 		cenarios.add(new CenarioBonus(descricao, bonus));
 		return cenarios.size();
@@ -84,8 +85,8 @@ public class Sistema {
 	 * @return a String exibindo o cenário.
 	 */
 	public String exibirCenario(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta de cenario: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta de cenario: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta de cenario");
+		validador.cenarioExistente(cenario, "Erro na consulta de cenario", cenarios.size());
 		return cenario + " - " + cenarios.get(cenario - 1).toString();
 	}
 
@@ -96,11 +97,7 @@ public class Sistema {
 	 * @return uma String que contem todos os cenários do sistema.
 	 */
 	public String exibirCenarios() {
-		String retorno = "";
-		for (int i = 0; i < cenarios.size(); i++) {
-			retorno += exibirCenario(i + 1) + System.lineSeparator();
-		}
-		return retorno;
+		return cenarios.stream().map(Cenario::toString).collect(Collectors.joining(System.lineSeparator()));
 	}
 
 	/**
@@ -116,24 +113,24 @@ public class Sistema {
 	 *            A previsão da aposta.
 	 */
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
-		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro no cadastro de aposta: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta");
+		validador.cenarioExistente(cenario, "Erro no cadastro de aposta", cenarios.size());
 
 		cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
 	}
 
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
 			int custo) {
-		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por taxa: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por taxa");
+		validador.cenarioExistente(cenario, "Erro no cadastro de aposta assegurada por taxa", cenarios.size());
 		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, taxa);
 	}
 
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
 			int valorAssegurado, int custo) {
-		verificaCenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro no cadastro de aposta assegurada por valor: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por valor");
+		validador.cenarioExistente(cenario, "Erro no cadastro de aposta assegurada por valor", cenarios.size());
 		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, valorAssegurado);
 	}
@@ -146,8 +143,8 @@ public class Sistema {
 	 * @return um inteiro, com a soma do valor todas as apostas do cenario.
 	 */
 	public int valorTotalDeApostas(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta do valor total de apostas: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta do valor total de apostas: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta do valor total de apostas");
+		validador.cenarioExistente(cenario, "Erro na consulta do valor total de apostas", cenarios.size());
 
 		return cenarios.get(cenario - 1).valorTotalDeApostas();
 	}
@@ -160,8 +157,8 @@ public class Sistema {
 	 * @return um inteiro que indica a quantidade de apostas de um cenário.
 	 */
 	public int totalDeApostas(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta do total de apostas: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta do total de apostas: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta do total de apostas");
+		validador.cenarioExistente(cenario, "Erro na consulta do total de apostas", cenarios.size());
 
 		return cenarios.get(cenario - 1).totalDeApostas();
 	}
@@ -174,8 +171,8 @@ public class Sistema {
 	 * @return uma string com as apostas no cenário.
 	 */
 	public String exibeApostas(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta das apostas: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta das apostas: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta das apostas");
+		validador.cenarioExistente(cenario, "Erro na consulta das apostas", cenarios.size());
 		return cenarios.get(cenario - 1).exibeApostas();
 	}
 
@@ -189,8 +186,8 @@ public class Sistema {
 	 *            um boolean que indica a ocorrência do cenário.
 	 */
 	public void fecharAposta(int cenario, boolean ocorreu) {
-		verificaCenarioInvalido(cenario, "Erro ao fechar aposta: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro ao fechar aposta: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro ao fechar aposta");
+		validador.cenarioExistente(cenario, "Erro ao fechar aposta", cenarios.size());
 
 		Cenario c = cenarios.get(cenario - 1);
 		if (!c.getEstado().equals(Estado.NAO_FINALIZADO)) {
@@ -211,12 +208,10 @@ public class Sistema {
 	 * @return um inteiro representando a caixa do cenário destinada ao sistema.
 	 */
 	public int caixaCenario(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta do caixa do cenario: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta do caixa do cenario: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta do caixa do cenario");
+		validador.cenarioExistente(cenario, "Erro na consulta do caixa do cenario", cenarios.size());
 		Cenario c = cenarios.get(cenario - 1);
-		if (c.getEstado().equals(Estado.NAO_FINALIZADO)) {
-			throw new IllegalArgumentException("Erro na consulta do caixa do cenario: Cenario ainda esta aberto");
-		}
+		validador.cenarioNaoFinalizado(c.getEstado(), "Erro na consulta do caixa do cenario");
 		return (int) (c.getCaixa() * this.taxa);
 	}
 
@@ -228,30 +223,11 @@ public class Sistema {
 	 * @return um inteiro que indica a quantia a ser dividida.
 	 */
 	public int totalRateioCenario(int cenario) {
-		verificaCenarioInvalido(cenario, "Erro na consulta do total de rateio do cenario: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na consulta do total de rateio do cenario");
+		validador.cenarioExistente(cenario, "Erro na consulta do total de rateio do cenario", cenarios.size());
 		Cenario c = cenarios.get(cenario - 1);
-
-		if (c.getEstado().equals(Estado.NAO_FINALIZADO)) {
-			throw new IllegalArgumentException(
-					"Erro na consulta do total de rateio do cenario: Cenario ainda esta aberto");
-		}
-
+		validador.cenarioNaoFinalizado(c.getEstado(), "Erro na consulta do total de rateio do cenario");
 		return c.totalRateioCenario(this.taxa);
-	}
-
-	/**
-	 * Método de verificação que lança uma exceção caso o cenário seja inválido.
-	 * 
-	 * @param cenario
-	 *            a numeração do cenário.
-	 * @param mensagem
-	 *            a mensagem a ser exibida na exceção.
-	 */
-	private void verificaCenarioInvalido(int cenario, String mensagem) {
-		if (cenario <= 0) {
-			throw new IllegalArgumentException(mensagem);
-		}
 	}
 
 	/**
@@ -262,19 +238,16 @@ public class Sistema {
 	 * @param mensagem
 	 *            a mensagem a ser exibida na exceção.
 	 */
-	private void verificaCenarioExistente(int cenario, String mensagem) {
-		if (cenario > cenarios.size()) {
-			throw new IllegalArgumentException(mensagem);
-		}
-	}
 
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
-		verificaCenarioInvalido(cenario, "Erro na consulta do total de rateio do cenario: Cenario invalido");
-		verificaCenarioExistente(cenario, "Erro na consulta do total de rateio do cenario: Cenario nao cadastrado");
+		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de valor");
+		validador.cenarioExistente(cenario, "Erro na alteração do seguro de valor", cenarios.size());
 		return cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valor);
 	}
 
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
+		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de taxa");
+		validador.cenarioExistente(cenario, "Erro na alteração do seguro de taxa", cenarios.size());
 		return cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxa);
 	}
 }
