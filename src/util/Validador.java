@@ -1,4 +1,6 @@
-package entidades;
+package util;
+
+import entidades.Estado;
 
 public class Validador {
 

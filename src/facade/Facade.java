@@ -1,5 +1,6 @@
-package entidades;
+package facade;
 
+import controllers.Sistema;
 import easyaccept.EasyAccept;
 
 /**
@@ -16,7 +17,7 @@ public class Facade {
 	 *            scripts de teste a serem executados.
 	 */
 	public static void main(String[] args) {
-		args = new String[] { "entidades.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
+		args = new String[] { "facade.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
 				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
 				"acceptance_test/us6_test.txt" };
 		EasyAccept.main(args);
@@ -67,9 +68,21 @@ public class Facade {
 		return sys.cadastrarCenario(descricao);
 	}
 
+	/**
+	 * Cadastra um cenário a partir de uma descrição e bônus e o aloca numa lista de
+	 * cenários. e retorna a numeração do cenário, que é a posição de alocação dele.
+	 * 
+	 * @param descricao
+	 *            a descrição do cenario.
+	 * @param bonus
+	 *            o valor bonus do cenario.
+	 *
+	 * @return a numeração do cenário.
+	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		return sys.cadastrarCenario(descricao, bonus);
 	}
+
 	/**
 	 * Exibe a representação em String de um cenário com sua numeração. A
 	 * representação segue o formato: "Numeracao - Descricao - Estado".
@@ -108,11 +121,13 @@ public class Facade {
 		sys.cadastrarAposta(cenario, apostador, valor, previsao);
 	}
 
-	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao, int valorAssegurado, int custo) {
+	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
+			int valorAssegurado, int custo) {
 		return sys.cadastrarApostaSeguraValor(cenario, apostador, valor, previsao, valorAssegurado, custo);
 	}
 
-	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa, int custo) {
+	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
+			int custo) {
 		return sys.cadastrarApostaSeguraTaxa(cenario, apostador, valor, previsao, taxa, custo);
 	}
 
@@ -185,11 +200,11 @@ public class Facade {
 	public int getTotalRateioCenario(int cenario) {
 		return sys.totalRateioCenario(cenario);
 	}
-	
+
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		return sys.alterarSeguroValor(cenario, apostaAssegurada, valor);
 	}
-	
+
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		return sys.alterarSeguroTaxa(cenario, apostaAssegurada, taxa);
 	}

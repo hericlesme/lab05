@@ -1,7 +1,13 @@
-package entidades;
+package controllers;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+
+import entidades.Cenario;
+import entidades.CenarioBonus;
+import entidades.CenarioDefault;
+import entidades.Estado;
+import util.Validador;
 
 /**
  * Representação de Um sistema de apostas. Um sistema pode ter vários cenários,

@@ -4,24 +4,23 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 /**
- * Representação de Um Cenário. Cada Cenário possui um estado, descrição, caixa
- * e uma lista de apostas. Podendo cadastrar, manipular
+ * Modelo de Um Cenário. Cada Cenário possui um estado, descrição, caixa e uma
+ * lista de apostas.
  * 
  * @author Héricles Emanuel - 117110647
  *
  */
 public abstract class Cenario {
-	protected Estado estado;
-	protected String descricao;
-	protected int caixa;
 	protected ArrayList<Aposta> apostas;
+	protected String descricao;
+	protected Estado estado;
+	protected int caixa;
 
 	/**
-	 * Constrói um cenário a partir de uma descrição, que não pode ser nula ou
-	 * vazia.
+	 * Construtor de um cenário, a partir de sua descrição.
 	 * 
 	 * @param descricao
-	 *            a descrição do cenario.
+	 *            a descrição do cenário.
 	 */
 	public Cenario(String descricao) {
 		this.caixa = 0;
@@ -30,6 +29,8 @@ public abstract class Cenario {
 		this.estado = Estado.NAO_FINALIZADO;
 
 	}
+
+	// Métodos Get
 
 	/**
 	 * Método get para o estado do Cenário.
@@ -41,8 +42,28 @@ public abstract class Cenario {
 	}
 
 	/**
-	 * Cadastra uma aposta no Cenário, a partir de seu nome, valor e previsão, e a
-	 * adiciona na lista de apostas.
+	 * Método get que retorna a caixa do Cenário.
+	 * 
+	 * @return um inteiro que representa a quantia na caixa do cenário.
+	 */
+	public int getCaixa() {
+		return caixa;
+	}
+
+	/**
+	 * Método get que retorna a soma dos valores dos seguros.
+	 * 
+	 * @return um inteiro que representa o valor total dos seguros.
+	 */
+	public int getSeguro() {
+		return apostas.stream().mapToInt(Aposta::getSeguro).sum();
+	}
+
+	// Métodos de Cadastro de Aposta
+
+	/**
+	 * Cadastra uma aposta desassegurada no Cenário, a partir de seu nome, valor e
+	 * previsão, e a adiciona na lista de apostas.
 	 * 
 	 * @param apostador
 	 *            o nome do apostador.
@@ -55,42 +76,77 @@ public abstract class Cenario {
 		apostas.add(new Aposta(apostador, valor, previsao));
 	}
 
+	/**
+	 * Cadastra uma aposta com seguro de valor no Cenário, a partir de seu nome,
+	 * valor, previsão e o valor assegurado, e a adiciona na lista de apostas.
+	 * 
+	 * @param apostador
+	 *            o nome do apostador.
+	 * @param valor
+	 *            o valor da aposta.
+	 * @param previsao
+	 *            a previsão da aposta.
+	 * @param valorAssegurado
+	 *            o valor do seguro.
+	 * @return o id da aposta assegurada cadastrada.
+	 * 
+	 */
 	public int cadastraAposta(String apostador, int valor, String previsao, int valorAssegurado) {
 		apostas.add(new Aposta(apostador, valor, previsao, valorAssegurado));
 		return apostas.size();
 	}
 
+	/**
+	 * Cadastra uma aposta com seguro de taxa no Cenário, a partir de seu nome,
+	 * valor, previsão e taxa do seguro, e a adiciona na lista de apostas.
+	 * 
+	 * @param apostador
+	 *            o nome do apostador.
+	 * @param valor
+	 *            o valor da aposta.
+	 * @param previsao
+	 *            a previsão da aposta.
+	 * @param taxa.
+	 *            a taxa correspondente ao valor seguro.
+	 * @return o id da aposta assegurada cadastrada.
+	 * 
+	 */
 	public int cadastraAposta(String apostador, int valor, String previsao, double taxa) {
 		apostas.add(new Aposta(apostador, valor, previsao, taxa));
 		return apostas.size();
 	}
 
+	// Métodos Gerais de Apostas
+
 	/**
-	 * Exibe a representação em string das apostas do cenário, uma a cada linha.
+	 * Altera um seguro de uma aposta para um seguro de valor.
 	 * 
-	 * @return uma string com as apostas no cenário.
+	 * @param apostaAssegurada
+	 *            o id da aposta a ter seu seguro trocado.
+	 * @param valor
+	 *            o valor do seguro.
+	 * @return o id da aposta alterada.
 	 */
-	public String exibeApostas() {
-		return apostas.stream().map(Aposta::toString).collect(Collectors.joining(System.lineSeparator()));
+	public int alterarSeguroValor(int apostaAssegurada, int valor) {
+		apostas.get(apostaAssegurada - 1).alterarSeguroValor(valor);
+		return apostaAssegurada;
 	}
 
 	/**
-	 * Retorna a quantidade de apostas num cenário.
+	 * Altera um seguro de uma aposta para um seguro de taxa.
 	 * 
-	 * @return um inteiro que indica a quantidade de apostas de um cenário.
+	 * @param apostaAssegurada
+	 *            o id da aposta a ter seu seguro trocado.
+	 * @param taxa
+	 *            a taxa do seguro.
+	 * @return o id da aposta alterada.
 	 */
-	public int totalDeApostas() {
-		return apostas.size();
+	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
+		apostas.get(apostaAssegurada - 1).alterarSeguroTaxa(taxa);
+		return apostaAssegurada;
 	}
 
-	/**
-	 * Calcula a soma dos valores das apostas do cenário.
-	 * 
-	 * @return um inteiro, com a soma do valor todas as apostas do cenario.
-	 */
-	public int valorTotalDeApostas() {
-		return apostas.stream().mapToInt(Aposta::getValor).sum();
-	}
+	// Métodos Gerais de Cenário.
 
 	/**
 	 * Concretiza um cenário, como ocorrido, ou não e incrementa a caixa do cenário,
@@ -124,36 +180,47 @@ public abstract class Cenario {
 	}
 
 	/**
-	 * Método get que retorna a caixa do Cenário.
+	 * Exibe a representação em string das apostas do cenário, uma a cada linha.
 	 * 
-	 * @return um inteiro que representa a quantia na caixa do cenário.
+	 * @return uma string com as apostas no cenário.
 	 */
-	public int getCaixa() {
-		return caixa;
+	public String exibeApostas() {
+		return apostas.stream().map(Aposta::toString).collect(Collectors.joining(System.lineSeparator()));
 	}
 
-	public int getSeguro() {
-		return apostas.stream().mapToInt(Aposta::getSeguro).sum();
+	/**
+	 * Retorna a quantidade de apostas num cenário.
+	 * 
+	 * @return um inteiro que indica a quantidade de apostas de um cenário.
+	 */
+	public int totalDeApostas() {
+		return apostas.size();
 	}
 
+	/**
+	 * Calcula a soma dos valores das apostas do cenário.
+	 * 
+	 * @return um inteiro, com a soma do valor todas as apostas do cenario.
+	 */
+	public int valorTotalDeApostas() {
+		return apostas.stream().mapToInt(Aposta::getValor).sum();
+	}
+
+	// Métodos abstratos de Cenário.
+
+	/**
+	 * Método abstrato que solicita o cálculo do valor de rateio a ser dividido entre os
+	 * vencedores, utilizando a taxa do sistema.
+	 * 
+	 * @param taxa
+	 *            a taxa do sistema.
+	 * 
+	 */
 	public abstract int totalRateioCenario(double taxa);
 
 	/**
-	 * Retorna uma representação em String de um Cenário. A representação segue o
-	 * formato: "Descrição - estado".
-	 * 
-	 * @return a string que representa o Cenário.
+	 * Método abstrato que solicita a representação em String de um Cenário.
 	 */
-	@Override
 	public abstract String toString();
 
-	public int alterarSeguroValor(int apostaAssegurada, int valor) {
-		apostas.get(apostaAssegurada - 1).alterarSeguroValor(valor);
-		return apostaAssegurada;
-	}
-
-	public int alterarSeguroTaxa(int apostaAssegurada, double taxa) {
-		apostas.get(apostaAssegurada - 1).alterarSeguroTaxa(taxa);
-		return apostaAssegurada;
-	}
 }
