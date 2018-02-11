@@ -58,6 +58,7 @@ public class Sistema {
 		return caixa;
 	}
 
+
 	/**
 	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou vazia
 	 * e o aloca numa lista de cenários. e retorna a numeração do cenário, que é a
@@ -74,6 +75,17 @@ public class Sistema {
 		return cenarios.size();
 	}
 
+	/**
+	 * Cadastra um cenário com bônus a partir de uma descrição e um bônus, o aloca
+	 * numa lista de cenários. e retorna a numeração do cenário, que é a posição de
+	 * alocação dele.
+	 * 
+	 * @param descricao
+	 *            a descrição do cenário.
+	 * @param bonus
+	 *            o bonus do cenário.
+	 * @return a numeração do cenário.
+	 */
 	public int cadastrarCenario(String descricao, int bonus) {
 		validador.descricaoInvalida(descricao);
 		validador.bonusInvalido(bonus);
@@ -121,22 +133,62 @@ public class Sistema {
 	public void cadastrarAposta(int cenario, String apostador, int valor, String previsao) {
 		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta");
 		validador.cenarioExistente(cenario, "Erro no cadastro de aposta", cenarios.size());
-
+		validador.apostaInvalida(apostador, previsao, valor, "");
 		cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao);
 	}
 
+	/**
+	 * Cadastra uma aposta assegurada por taxa em um determinado cenário, dada
+	 * sua numeração.
+	 * 
+	 * @param cenario
+	 *            A numeração do cenário a ser cadastrado a aposta.
+	 * @param apostador
+	 *            O nome do apostador.
+	 * @param valor
+	 *            O valor da aposta.
+	 * @param previsao
+	 *            A previsão da aposta.
+	 * @param taxa
+	 *            a taxa do seguro.
+	 * @param custo
+	 *            o custo do seguro.
+	 * @return o id da aposta assegurada.
+	 */
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
 			int custo) {
 		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por taxa");
 		validador.cenarioExistente(cenario, "Erro no cadastro de aposta assegurada por taxa", cenarios.size());
+		validador.apostaInvalida(apostador, previsao, valor, " assegurada por taxa");
+		validador.cadastraSeguroTaxaInvalido(taxa, custo);
 		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, taxa);
 	}
 
+	/**
+	 * Cadastra uma aposta assegurada por valor em um determinado cenário, dada
+	 * sua numeração.
+	 * 
+	 * @param cenario
+	 *            A numeração do cenário a ser cadastrado a aposta.
+	 * @param apostador
+	 *            O nome do apostador.
+	 * @param valor
+	 *            O valor da aposta.
+	 * @param previsao
+	 *            A previsão da aposta.
+	 * @param valor
+	 *            o valor do seguro.
+	 * @param custo
+	 *            o custo do seguro.
+	 * @return o id da aposta assegurada.
+	 */
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
 			int valorAssegurado, int custo) {
 		validador.cenarioInvalido(cenario, "Erro no cadastro de aposta assegurada por valor");
 		validador.cenarioExistente(cenario, "Erro no cadastro de aposta assegurada por valor", cenarios.size());
+		validador.apostaInvalida(apostador, previsao, valor, " assegurada por valor");
+		validador.cadastraSeguroValorInvalido(valorAssegurado, custo);
 		this.caixa += custo;
 		return cenarios.get(cenario - 1).cadastraAposta(apostador, valor, previsao, valorAssegurado);
 	}
@@ -237,20 +289,35 @@ public class Sistema {
 	}
 
 	/**
-	 * Método de verificação que lança uma exceção caso o cenário seja inexistente.
+	 * Altera um seguro de uma aposta em determinado cenário para um seguro de
+	 * valor.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
-	 * @param mensagem
-	 *            a mensagem a ser exibida na exceção.
+	 * @param apostaAssegurada
+	 *            o id da aposta a ter seu seguro trocado.
+	 * @param valor
+	 *            o valor do seguro.
+	 * @return o id da aposta alterada.
 	 */
-
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de valor");
 		validador.cenarioExistente(cenario, "Erro na alteração do seguro de valor", cenarios.size());
+		validador.alteraSeguroTaxaInvalido(apostaAssegurada, valor, totalDeApostas(cenario));
 		return cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valor);
 	}
 
+	/**
+	 * Altera um seguro de uma aposta em determinado cenário para um seguro de taxa.
+	 * 
+	 * @param cenario
+	 *            a numeração do cenário.
+	 * @param apostaAssegurada
+	 *            o id da aposta a ter seu seguro trocado.
+	 * @param taxa
+	 *            a taxa do seguro.
+	 * @return o id da aposta alterada.
+	 */
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de taxa");
 		validador.cenarioExistente(cenario, "Erro na alteração do seguro de taxa", cenarios.size());

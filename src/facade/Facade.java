@@ -17,9 +17,10 @@ public class Facade {
 	 *            scripts de teste a serem executados.
 	 */
 	public static void main(String[] args) {
-		args = new String[] { "facade.Facade", "acceptance_test/us1_test.txt", "acceptance_test/us2_test.txt",
-				"acceptance_test/us3_test.txt", "acceptance_test/us4_test.txt", "acceptance_test/us5_test.txt",
-				"acceptance_test/us6_test.txt" };
+		args = new String[] { "facade.Facade", "testes/acceptance_test/us1_test.txt",
+				"testes/acceptance_test/us2_test.txt", "testes/acceptance_test/us3_test.txt",
+				"testes/acceptance_test/us4_test.txt", "testes/acceptance_test/us5_test.txt",
+				"testes/acceptance_test/us6_test.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -121,11 +122,47 @@ public class Facade {
 		sys.cadastrarAposta(cenario, apostador, valor, previsao);
 	}
 
+	/**
+	 * Cadastra uma aposta com seguro por valor em um determinado cenário, dada sua
+	 * numeração.
+	 * 
+	 * @param cenario
+	 *            A numeração do cenário a ser cadastrado a aposta.
+	 * @param apostador
+	 *            O nome do apostador.
+	 * @param valor
+	 *            O valor da aposta.
+	 * @param previsao
+	 *            A previsão da aposta.
+	 * @param valorAssegurado
+	 *            O valor do seguro da aposta.
+	 * @param custo
+	 *            O custo do seguro da aposta.
+	 * @return um inteiro que representa o id da aposta assegurada.
+	 */
 	public int cadastrarApostaSeguraValor(int cenario, String apostador, int valor, String previsao,
 			int valorAssegurado, int custo) {
 		return sys.cadastrarApostaSeguraValor(cenario, apostador, valor, previsao, valorAssegurado, custo);
 	}
 
+	/**
+	 * Cadastra uma aposta com seguro por taxa em um determinado cenário, dada sua
+	 * numeração.
+	 * 
+	 * @param cenario
+	 *            A numeração do cenário a ser cadastrado a aposta.
+	 * @param apostador
+	 *            O nome do apostador.
+	 * @param valor
+	 *            O valor da aposta.
+	 * @param previsao
+	 *            A previsão da aposta.
+	 * @param taxa
+	 *            a taxa do seguro da aposta.
+	 * @param custo
+	 *            O custo do seguro da aposta.
+	 * @return um inteiro que representa o id da aposta assegurada.
+	 */
 	public int cadastrarApostaSeguraTaxa(int cenario, String apostador, int valor, String previsao, double taxa,
 			int custo) {
 		return sys.cadastrarApostaSeguraTaxa(cenario, apostador, valor, previsao, taxa, custo);
@@ -201,10 +238,34 @@ public class Facade {
 		return sys.totalRateioCenario(cenario);
 	}
 
+	/**
+	 * Altera o seguro de uma aposta em determinado cenário para seguro por valor,
+	 * dado seu id.
+	 * 
+	 * @param cenario
+	 *            a numeração do cenário.
+	 * @param apostaAssegurada
+	 *            o id da aposta.
+	 * @param valor
+	 *            o valor do seguro da aposta.
+	 * @return um inteiro que representa o id da aposta assegurada.
+	 */
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		return sys.alterarSeguroValor(cenario, apostaAssegurada, valor);
 	}
 
+	/**
+	 * Altera o seguro de uma aposta em determinado cenário para seguro por taxa,
+	 * dado seu id.
+	 * 
+	 * @param cenario
+	 *            a numeração do cenário.
+	 * @param apostaAssegurada
+	 *            o id da aposta.
+	 * @param taxa
+	 *            o taxa do seguro da aposta.
+	 * @return um inteiro que representa o id da aposta assegurada.
+	 */
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		return sys.alterarSeguroTaxa(cenario, apostaAssegurada, taxa);
 	}

@@ -29,7 +29,6 @@ public class SeguroTaxa extends Seguro {
 	 * 
 	 * @return um inteiro que representa o valor do seguro
 	 */
-	@Override
 	public int getValor() {
 		return (int) (this.valor * this.taxa);
 	}
@@ -44,4 +43,16 @@ public class SeguroTaxa extends Seguro {
 	public String toString() {
 		return " - ASSEGURADA (TAXA) -" + this.valor * 100 + "%";
 	}
+
+	/**
+	 * Retorna o Seguro para qual este pode ser alterado.
+	 * 
+	 * @param valorAssegurado
+	 *            o valor do seguro
+	 * @return um SeguroValor com o valor passado.s
+	 */
+	public Seguro alternaTipo(int valorAssegurado) {
+		return new SeguroValor(valorAssegurado);
+	}
+
 }

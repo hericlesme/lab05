@@ -8,6 +8,7 @@ package entidades;
  *
  */
 public class Aposta {
+
 	private String apostador;
 	private String previsao;
 	private Seguro seguro;
@@ -25,21 +26,26 @@ public class Aposta {
 	 *            a previsão da aposta, se vai acontecer ou não.
 	 */
 	public Aposta(String apostador, int valor, String previsao) {
-		validaApostador(apostador, "");
-		validaPrevisao(previsao, "");
-		validaValor(valor, "");
-
 		this.valor = valor;
 		this.previsao = previsao;
 		this.apostador = apostador;
 		this.seguro = new SemSeguro();
 	}
 
+	/**
+	 * Construtor de uma aposta assegurada por valor. Constrói a aposta a partir de
+	 * um apostador, valor, previsão e valor assegurado.
+	 * 
+	 * @param apostador
+	 *            o apostador da aposta.
+	 * @param valor
+	 *            o valor da aposta.
+	 * @param previsao
+	 *            a previsão da aposta, se vai acontecer ou não.
+	 * @param valorAssegurado
+	 *            o valor do seguro da aposta.
+	 */
 	public Aposta(String apostador, int valor, String previsao, int valorAssegurado) {
-		validaApostador(apostador, " assegurada por valor");
-		validaPrevisao(previsao, " assegurada por valor");
-		validaValor(valor, " assegurada por valor");
-
 		this.valor = valor;
 		this.previsao = previsao;
 		this.apostador = apostador;
@@ -47,11 +53,22 @@ public class Aposta {
 
 	}
 
+	/**
+	 * Construtor de uma aposta assegurada por taxa. Constrói a aposta a partir de
+	 * um apostador, valor, e previsão.
+	 * 
+	 * @param apostador
+	 *            o apostador da aposta.
+	 * @param valor
+	 *            o valor da aposta.
+	 * @param previsao
+	 *            a previsão da aposta, se vai acontecer ou não.
+	 * @param taxa
+	 *            a taxa do seguro da aposta.
+	 * 
+	 * 
+	 */
 	public Aposta(String apostador, int valor, String previsao, double taxa) {
-		validaApostador(apostador, " assegurada por taxa");
-		validaPrevisao(previsao, " assegurada por taxa");
-		validaValor(valor, " assegurada por taxa");
-
 		this.valor = valor;
 		this.previsao = previsao;
 		this.apostador = apostador;
@@ -71,6 +88,7 @@ public class Aposta {
 	public int getSeguro() {
 		return seguro.getValor();
 	}
+
 	/**
 	 * Método get para a previsão da aposta.
 	 * 
@@ -83,7 +101,7 @@ public class Aposta {
 
 	/**
 	 * Retorna uma representação em String de uma Aposta. A representação segue o
-	 * formato: "Apostador - R$valor - previsão."
+	 * formato: "Apostador - R$ valor - previsão."
 	 * 
 	 * @return uma string que representa a Aposta.
 	 */
@@ -94,61 +112,22 @@ public class Aposta {
 	}
 
 	/**
-	 * Verifica a validade do Apostador, se não é nulo ou vazio.
+	 * Altera um seguro da aposta para um seguro de valor.
 	 * 
-	 * @param apostador
-	 *            o apostador da Aposta.
+	 * @param valorAssegurado
+	 *            o valor do seguro.
 	 */
-	private void validaApostador(String apostador, String tipoSeguro) {
-		if (apostador == null) {
-			throw new NullPointerException(
-					"Erro no cadastro de aposta" + tipoSeguro + ":Apostador nao pode ser vazio ou nulo");
-		}
-
-		if (apostador.trim().equals("")) {
-			throw new IllegalArgumentException(
-					"Erro no cadastro de aposta" + tipoSeguro + ": Apostador nao pode ser vazio ou nulo");
-		}
+	public void alterarSeguroValor(int valorAssegurado) {
+		this.seguro = ((SeguroTaxa) (seguro)).alternaTipo(valorAssegurado);
 	}
 
 	/**
-	 * Verifica a validade do Valor, se não é negativo ou igual a zero.
+	 * Altera um seguro da aposta para um seguro de taxa.
 	 * 
 	 * @param valor
-	 *            o valor da Aposta.
+	 *            a taxa da aposta
 	 */
-	private void validaValor(int valor, String tipoSeguro) {
-		if (valor <= 0) {
-			throw new IllegalArgumentException(
-					"Erro no cadastro de aposta" + tipoSeguro + ": Valor nao pode ser menor ou igual a zero");
-		}
-	}
-
-	/**
-	 * Verifica a validade da Previsão, se não é nula, vazia ou está fora do formato
-	 * esperado.
-	 * 
-	 * @param previsao
-	 *            a previsão da Aposta.
-	 */
-	private void validaPrevisao(String previsao, String tipoSeguro) {
-		if (previsao == null) {
-			throw new NullPointerException(
-					"Erro no cadastro de aposta" + tipoSeguro + ": Previsao nao pode ser vazia ou nula");
-		}
-		if (previsao.trim().equals("")) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta" + tipoSeguro + ": Previsao nao pode ser vazia ou nula");
-		}
-		if (!(previsao.equals("N VAI ACONTECER") || previsao.equals("VAI ACONTECER"))) {
-			throw new IllegalArgumentException("Erro no cadastro de aposta"  + tipoSeguro + ": Previsao invalida");
-		}
-	}
-
-	public void alterarSeguroValor(int valorAssegurado) {
-		this.seguro = new SeguroValor(valorAssegurado);
-	}
-	
 	public void alterarSeguroTaxa(double taxa) {
-		this.seguro = new SeguroTaxa(this.valor, taxa);
+		this.seguro = ((SeguroValor) (seguro)).alternaTipo(this.valor, taxa);
 	}
 }

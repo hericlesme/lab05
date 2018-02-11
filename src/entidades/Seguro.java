@@ -14,9 +14,7 @@ public abstract class Seguro {
 	 * 
 	 * @return um inteiro que representa o valor do seguro.
 	 */
-	public int getValor() {
-		return valor;
-	}
+	public abstract int getValor();
 
 	/**
 	 * Solicita a representação em String de um seguro.
