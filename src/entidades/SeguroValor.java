@@ -28,7 +28,7 @@ public class SeguroValor extends Seguro {
 	 */
 	@Override
 	public String toString() {
-		return " - ASSEGURADA (VALOR) - R$ " + String.format("%.2f", this.valor);
+		return " - ASSEGURADA (VALOR) - R$ " + String.format("%.2f", this.valor / 100.0);
 	}
 
 	/**

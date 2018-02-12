@@ -2,10 +2,9 @@ package entidades;
 
 public class Main {
 	public static void main(String[] args) {
-		Aposta a = new Aposta("Alexsander", 10000, "VAI ACONTECER", 1000);
+		Aposta a = new Aposta("Alexsander", 10000, "VAI ACONTECER", 0.1);
 		System.out.println(a.getSeguro());
-		a.alterarSeguroTaxa(0.1);
+		a.alterarSeguroValor(100);
 		System.out.println(a.toString());
-		System.out.println(String.format("%.2f", 1000));
 	}
 }

@@ -55,5 +55,4 @@ public class SeguroTaxa extends Seguro {
 	public Seguro alternaTipo(Object[] args) {
 		return new SeguroValor((int) args[0]);
 	}
-
 }

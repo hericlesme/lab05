@@ -7,19 +7,10 @@ import org.junit.Test;
 
 import entidades.Aposta;
 
-/**
- * Teste da classe Aposta.
- * 
- * Lab05 - Laboratório de Programação II
- * 
- * @author Héricles Emanuel - 117110647
- *
- */
 public class ApostaTest {
-
 	Aposta aposta, outraAposta;
 
-	/*
+	/**
 	 * Inicializa a Aposta aposta.
 	 */
 	@Before
@@ -27,13 +18,33 @@ public class ApostaTest {
 		aposta = new Aposta("Gauds", 2048, "N VAI ACONTECER");
 	}
 
-	/*
-	 * Testa o construtor de uma aposta.
+	/**
+	 * Testa o construtor de uma aposta sem seguro.
 	 */
 	@Test
-	public void testConstrutor() {
+	public void testAposta() {
 		assertTrue(outraAposta == null);
-		outraAposta = new Aposta("Pericles", 9999, "VAI ACONTECER");
+		outraAposta = new Aposta("To com fome", 9999, "VAI ACONTECER");
+		assertFalse(outraAposta == null);
+	}
+
+	/**
+	 * Testa o construtor de uma aposta assegurada por valor.
+	 */
+	@Test
+	public void testApostaSeguroValor() {
+		assertTrue(outraAposta == null);
+		outraAposta = new Aposta("bb me nota", 9999, "VAI ACONTECER", 1000);
+		assertFalse(outraAposta == null);
+	}
+
+	/**
+	 * Testa o construtor de uma aposta assegurada por taxa.
+	 */
+	@Test
+	public void testApostaSeguroTaxa() {
+		assertTrue(outraAposta == null);
+		outraAposta = new Aposta("Eu vou comer", 9999, "N VAI ACONTECER", 0.23);
 		assertFalse(outraAposta == null);
 	}
 
@@ -43,6 +54,18 @@ public class ApostaTest {
 	@Test
 	public void testGetValor() {
 		assertEquals(2048, aposta.getValor());
+	}
+
+	/*
+	 * Testa o método get para o valor do seguro da aposta.
+	 */
+	@Test
+	public void testGetSeguro() {
+		assertEquals(0, aposta.getSeguro());
+		outraAposta = new Aposta("q pena q vc n vai ver isso", 100, "VAI ACONTECER", 500);
+		assertEquals(500, outraAposta.getSeguro());
+		outraAposta = new Aposta("c ta tao longe agora", 1000, "VAI ACONTECER", 0.05);
+		assertEquals(50, outraAposta.getSeguro());
 	}
 
 	/*
@@ -59,61 +82,46 @@ public class ApostaTest {
 	@Test
 	public void testToString() {
 		assertEquals("Gauds - R$20,48 - N VAI ACONTECER", aposta.toString());
-		outraAposta = new Aposta("Picles", 10000, "N VAI ACONTECER");
-		assertEquals("Picles - R$100,00 - N VAI ACONTECER", outraAposta.toString());
 	}
 
 	/*
-	 * Testa o construtor de uma aposta quando o apostador é nulo.
+	 * Testa a representação em String de uma aposta assegurada por valor.
 	 */
-	@Test(expected = NullPointerException.class)
-	public void testApostadorNulo() {
-		outraAposta = new Aposta(null, 156513641, "N VAI ACONTECER");
+	@Test
+	public void testToStringAsseguradaValor() {
+		outraAposta = new Aposta("eh ne", 100, "VAI ACONTECER", 500);
+		assertEquals("eh ne - R$1,00 - VAI ACONTECER - ASSEGURADA (VALOR) - R$ 5,00", outraAposta.toString());
 	}
 
 	/*
-	 * Testa o construtor de uma aposta quando o apostador é vazio.
+	 * Testa a representação em String de uma aposta assegurada por taxa.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testApostadorInvalido() {
-		outraAposta = new Aposta("", 10000, "N VAI ACONTECER");
-		outraAposta = new Aposta("       ", 10000, "N VAI ACONTECER");
-
+	@Test
+	public void testToStringAsseguradaTaxa() {
+		outraAposta = new Aposta("eh a vida", 1000, "VAI ACONTECER", 0.5);
+		assertEquals("eh a vida - R$10,00 - VAI ACONTECER - ASSEGURADA (TAXA) - 50%", outraAposta.toString());
 	}
 
-	/*
-	 * Testa o construtor de uma aposta quando a previsão é nula.
+	/**
+	 * Testa a alteração para um seguro de valor.
 	 */
-	@Test(expected = NullPointerException.class)
-	public void testPrevisaoNula() {
-		outraAposta = new Aposta("Hemi", 15641, null);
+	@Test
+	public void testAlterarSeguroValor() {
+		outraAposta = new Aposta("mas vc n me nota", 1000, "N VAI ACONTECER", 0.1);
+		assertEquals(100, outraAposta.getSeguro());
+		outraAposta.alterarSeguroValor(200);
+		assertEquals(200, outraAposta.getSeguro());
 	}
 
-	/*
-	 * Testa o construtor de uma aposta quando a previsão é vazia.
+	/**
+	 * Testa a alteração para um seguro de taxa.
 	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testPrevisaoVazia() {
-		outraAposta = new Aposta("Anjo", 123456, "   ");
-		outraAposta = new Aposta("Querubim", 123456, "");
-	}
-
-	/*
-	 * Testa o construtor de uma aposta quando a previsão é inválida.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testPrevisaoInvalida() {
-		outraAposta = new Aposta("Arcanjo", 123456, "HAUSHAUHSN");
-		outraAposta = new Aposta("Arcanjo", 123456, "N VAI ACONTECR");
-	}
-
-	/*
-	 * Testa o construtor de uma aposta quando o valor é inválido.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testValorInvalido() {
-		outraAposta = new Aposta("Gauds", 0, "N VAI ACONTECER");
-		outraAposta = new Aposta("Gauds", -1, "N VAI ACONTECER");
+	@Test
+	public void testAlterarSeguroTaxa() {
+		outraAposta = new Aposta("ate quando isso", 1000, "N VAI ACONTECER", 100);
+		assertEquals(100, outraAposta.getSeguro());
+		outraAposta.alterarSeguroTaxa(0.2);
+		assertEquals(200, outraAposta.getSeguro());
 	}
 
 }

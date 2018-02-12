@@ -8,6 +8,12 @@ import entidades.Seguro;
 import entidades.SeguroTaxa;
 import entidades.SeguroValor;
 
+/**
+ * Classe de testes JUnity da classe SeguroTaxa.
+ * 
+ * @author Héricles Emanuel - 117110647
+ *
+ */
 public class SeguroTaxaTest {
 	Seguro seguroTaxa;
 
@@ -27,7 +33,7 @@ public class SeguroTaxaTest {
 	@Test
 	public void testGetValor() {
 		seguroTaxa = new SeguroTaxa(100, 0.1);
-		assertEquals(10, seguroTaxa.getValor());
+		assertTrue(seguroTaxa.getValor() == 10);
 	}
 
 	/**
@@ -39,11 +45,15 @@ public class SeguroTaxaTest {
 		assertEquals(" - ASSEGURADA (TAXA) - 10%", seguroTaxa.toString());
 	}
 
+	/**
+	 * Testa a alteração do tipo de um SeguroTaxa.
+	 */
 	@Test
 	public void testAlternaTipo() {
 		seguroTaxa = new SeguroTaxa(100, 0.1);
-		Seguro naoSeguro = seguroTaxa.alternaTipo(new Object[] {100});
-		assertEquals(naoSeguro.toString()," - ASSEGURADA (VALOR) - R$ 100,00");
+		Seguro naoSeguro = seguroTaxa.alternaTipo(new Object[] { 100 });
+		Seguro outroSeguro = new SeguroValor(100);
+		assertEquals(naoSeguro.toString(), outroSeguro.toString());
+		assertEquals(naoSeguro.getValor(), outroSeguro.getValor());
 	}
-
 }
