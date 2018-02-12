@@ -34,13 +34,12 @@ public class SeguroValor extends Seguro {
 	/**
 	 * Retorna o Seguro para qual este pode ser alterado.
 	 * 
-	 * @param valor
-	 *            o valor da aposta
-	 * @param taxa
-	 *            a taxa do seguro
+	 * @param args
+	 *            um array de objetos, que contém os parâmetros a serem utilizados
+	 *            na modificação do Seguro.
 	 * @return um SeguroTaxa com os valores passados.
 	 */
-	public Seguro alternaTipo(int valor, double taxa) {
-		return new SeguroTaxa(valor, taxa);
+	public Seguro alternaTipo(Object[] args) {
+		return new SeguroTaxa((int) args[0], (double) args[1]);
 	}
 }

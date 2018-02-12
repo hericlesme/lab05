@@ -20,4 +20,15 @@ public abstract class Seguro {
 	 * Solicita a representação em String de um seguro.
 	 */
 	public abstract String toString();
+
+	/**
+	 * Retorna o Seguro proveniente da alteração, conforme o tipo de seguro em que
+	 * for chamado o método.
+	 * 
+	 * @param args
+	 *            um array de objetos, que contém os parâmetros a serem utilizados
+	 *            na modificação do Seguro.
+	 * @return um novo Seguro.
+	 */
+	public abstract Seguro alternaTipo(Object[] args);
 }

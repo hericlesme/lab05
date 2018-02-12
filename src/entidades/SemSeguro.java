@@ -25,4 +25,12 @@ public class SemSeguro extends Seguro {
 	public String toString() {
 		return "";
 	}
+
+	/**
+	 * Lança um Erro, pois não é possível modificar este tipo de seguro.
+	 */
+	@Override
+	public Seguro alternaTipo(Object[] args) {
+		throw new Error("Erro na alteração de seguro: A aposta não possui seguro");
+	}
 }
