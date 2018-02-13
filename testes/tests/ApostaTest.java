@@ -7,6 +7,14 @@ import org.junit.Test;
 
 import entidades.Aposta;
 
+/**
+ * Classe de Testes JUnity da classe Aposta.
+ * 
+ * Lab05 - Laboratório de Programação II
+ * 
+ * @author Héricles Emanuel - 117110647
+ *
+ */
 public class ApostaTest {
 	Aposta aposta, outraAposta;
 

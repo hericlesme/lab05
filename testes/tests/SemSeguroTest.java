@@ -8,7 +8,9 @@ import entidades.Seguro;
 import entidades.SemSeguro;
 
 /**
- * Classe de testes JUnity da classe SemSeguro.
+ * Classe de Testes JUnity da classe SemSeguro.
+ * 
+ * Lab05 - Laboratório de Programação II
  * 
  * @author Héricles Emanuel - 117110647
  *

@@ -9,6 +9,14 @@ import entidades.Cenario;
 import entidades.CenarioDefault;
 import entidades.Estado;
 
+/**
+ * Classe de Testes JUnity da classe CenarioDefault.
+ * 
+ * Lab05 - Laboratório de Programação II
+ * 
+ * @author Héricles Emanuel - 117110647
+ *
+ */
 public class CenarioDefaultTest {
 	Cenario cenario, outroCenario;
 
@@ -44,6 +52,26 @@ public class CenarioDefaultTest {
 		assertTrue(cenario.totalDeApostas() == 2);
 	}
 
+	/**
+	 * Testa o cadastro de uma aposta assegurada por taxa no cenário, e sua adição à lista de Apostas.
+	 */
+	@Test
+	public void testCadastraApostaAsseguradaTaxa() {
+		assertTrue(cenario.totalDeApostas() == 0);
+		assertEquals(1, cenario.cadastraAposta("Hue", 666666, "VAI ACONTECER", 0.1));
+		assertEquals(2, cenario.cadastraAposta("HuA", 666666, "N VAI ACONTECER", 0.2));
+	}
+
+	/**
+	 * Testa o cadastro de uma aposta assegurada por valor no cenário, e sua adição à lista de Apostas.
+	 */
+	@Test
+	public void testCadastraApostaAsseguradaValor() {
+		assertTrue(cenario.totalDeApostas() == 0);
+		assertEquals(1, cenario.cadastraAposta("oi", 41561, "VAI ACONTECER", 500));
+		assertEquals(2, cenario.cadastraAposta("soueu", 1562, "N VAI ACONTECER", 100));
+	}
+	
 	/**
 	 * Testa o método concretiza cenário, garantindo o incremento da caixa do
 	 * cenário quando acontecer.
@@ -138,7 +166,7 @@ public class CenarioDefaultTest {
 	}
 
 	/**
-	 * Testa o método getSeguro de um Cenário.s
+	 * Testa o método getSeguro de um Cenário.
 	 */
 	@Test
 	public void testGetSeguro() {
@@ -152,10 +180,34 @@ public class CenarioDefaultTest {
 	 */
 	@Test
 	public void testTotalRateioCenario() {
-		cenario.cadastraAposta("sla", 1000, "VAI ACONTECER");
-		cenario.cadastraAposta("eu dnv", 500, "NAO VAI ACONTECER");
+		cenario.cadastraAposta("poucos saberao", 1000, "VAI ACONTECER");
+		cenario.cadastraAposta("desta declaracao", 500, "NAO VAI ACONTECER");
 		cenario.concretizaCenario(true);
 		double taxa = 0.1;
 		assertEquals(450, cenario.totalRateioCenario(taxa));
+	}
+	
+	/**
+	 * Testa o método AlterarSeguroValor, garantindo a troca do tipo de seguro de
+	 * uma aposta no cenário.
+	 */
+	@Test
+	public void testAlterarSeguroValor() {
+		cenario.cadastraAposta("ninguem sabera", 1000, "VAI ACONTECER", 0.1);
+		assertEquals(100, cenario.getSeguro());
+		cenario.alterarSeguroValor(1, 200);
+		assertEquals(200, cenario.getSeguro());
+	}
+	
+	/**
+	 * Testa o método AlterarSeguroValor, garantindo a troca do tipo de seguro de
+	 * uma aposta no cenário.
+	 */
+	@Test
+	public void testAlteraSeguroTaxa() {
+		cenario.cadastraAposta("quem eh voce, oh crush", 1000, "VAI ACONTECER", 200);
+		assertEquals(200, cenario.getSeguro());
+		cenario.alterarSeguroTaxa(1, 0.1);
+		assertEquals(100, cenario.getSeguro());
 	}
 }

@@ -10,7 +10,9 @@ import entidades.SeguroValor;
 
 
 /**
- * Classe de testes JUnity da classe SeguroValor.
+ * Classe de Testes JUnity da classe SeguroValor.
+ * 
+ * Lab05 - Laboratório de Programação II
  * 
  * @author Héricles Emanuel - 117110647
  *

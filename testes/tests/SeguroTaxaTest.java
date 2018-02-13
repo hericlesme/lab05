@@ -9,7 +9,9 @@ import entidades.SeguroTaxa;
 import entidades.SeguroValor;
 
 /**
- * Classe de testes JUnity da classe SeguroTaxa.
+ * Classe de Testes JUnity da classe SeguroTaxa.
+ * 
+ * Lab05 - Laboratório de Programação II
  * 
  * @author Héricles Emanuel - 117110647
  *

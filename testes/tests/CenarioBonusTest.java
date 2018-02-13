@@ -9,6 +9,14 @@ import entidades.Cenario;
 import entidades.CenarioBonus;
 import entidades.Estado;
 
+/**
+ * Classe de Testes JUnity da classe CenarioBonus.
+ * 
+ * Lab05 - Laboratório de Programação II
+ * 
+ * @author Héricles Emanuel - 117110647
+ *
+ */
 public class CenarioBonusTest {
 	Cenario cenario, outroCenario;
 
@@ -21,7 +29,7 @@ public class CenarioBonusTest {
 	}
 
 	/*
-	 * Testa o construtor de um cenário Default.
+	 * Testa o construtor de um cenário Bonus.
 	 */
 	@Test
 	public void testConstrutor() {
@@ -37,11 +45,33 @@ public class CenarioBonusTest {
 	public void testCadastraAposta() {
 		assertTrue(cenario.totalDeApostas() == 0);
 
-		cenario.cadastraAposta("Hue", 666666, "VAI ACONTECER");
+		cenario.cadastraAposta("Hehe", 666666, "VAI ACONTECER");
 		assertTrue(cenario.totalDeApostas() == 1);
 
-		cenario.cadastraAposta("HuA", 666666, "N VAI ACONTECER");
+		cenario.cadastraAposta("ahsuahus", 666666, "N VAI ACONTECER");
 		assertTrue(cenario.totalDeApostas() == 2);
+	}
+
+	/**
+	 * Testa o cadastro de uma aposta assegurada por taxa no cenário, e sua adição à
+	 * lista de Apostas.
+	 */
+	@Test
+	public void testCadastraApostaAsseguradaTaxa() {
+		assertTrue(cenario.totalDeApostas() == 0);
+		assertEquals(1, cenario.cadastraAposta("Hue", 666666, "VAI ACONTECER", 0.1));
+		assertEquals(2, cenario.cadastraAposta("brbr", 666666, "N VAI ACONTECER", 0.2));
+	}
+
+	/**
+	 * Testa o cadastro de uma aposta assegurada por valor no cenário, e sua adição
+	 * à lista de Apostas.
+	 */
+	@Test
+	public void testCadastraApostaAsseguradaValor() {
+		assertTrue(cenario.totalDeApostas() == 0);
+		assertEquals(1, cenario.cadastraAposta("oi", 41561, "VAI ACONTECER", 500));
+		assertEquals(2, cenario.cadastraAposta("soueu", 1562, "N VAI ACONTECER", 100));
 	}
 
 	/**
@@ -52,8 +82,8 @@ public class CenarioBonusTest {
 	public void testConcretizaCenarioAconteceu() {
 		assertEquals(Estado.NAO_FINALIZADO, cenario.getEstado());
 
-		cenario.cadastraAposta("Kaka", 2000, "VAI ACONTECER");
-		cenario.cadastraAposta("Keki", 1000, "N VAI ACONTECER");
+		cenario.cadastraAposta("ain", 2000, "VAI ACONTECER");
+		cenario.cadastraAposta("blue heart", 1000, "N VAI ACONTECER");
 		cenario.concretizaCenario(true);
 
 		assertTrue(cenario.getCaixa() == 1000);
@@ -69,8 +99,8 @@ public class CenarioBonusTest {
 	public void testConcretizaCenarioNaoAconteceu() {
 		assertEquals(Estado.NAO_FINALIZADO, cenario.getEstado());
 
-		cenario.cadastraAposta("Kaka", 2000, "VAI ACONTECER");
-		cenario.cadastraAposta("Keki", 1000, "N VAI ACONTECER");
+		cenario.cadastraAposta("i", 2000, "VAI ACONTECER");
+		cenario.cadastraAposta("crush", 1000, "N VAI ACONTECER");
 		cenario.concretizaCenario(false);
 
 		assertTrue(cenario.getCaixa() == 2000);
@@ -156,7 +186,32 @@ public class CenarioBonusTest {
 		cenario.cadastraAposta("e vc", 1000, "VAI ACONTECER");
 		cenario.cadastraAposta("nem percebe", 600, "NAO VAI ACONTECER");
 		cenario.concretizaCenario(true);
+
 		double taxa = 0.1;
 		assertEquals(640, cenario.totalRateioCenario(taxa));
+	}
+
+	/**
+	 * Testa o método AlterarSeguroValor, garantindo a troca do tipo de seguro de
+	 * uma aposta no cenário.
+	 */
+	@Test
+	public void testAlterarSeguroValor() {
+		cenario.cadastraAposta("eu aposto em vc", 1000, "VAI ACONTECER", 0.1);
+		assertEquals(100, cenario.getSeguro());
+		cenario.alterarSeguroValor(1, 200);
+		assertEquals(200, cenario.getSeguro());
+	}
+
+	/**
+	 * Testa o método AlterarSeguroValor, garantindo a troca do tipo de seguro de
+	 * uma aposta no cenário.
+	 */
+	@Test
+	public void testAlteraSeguroTaxa() {
+		cenario.cadastraAposta("eu escolho vc", 1000, "VAI ACONTECER", 200);
+		assertEquals(200, cenario.getSeguro());
+		cenario.alterarSeguroTaxa(1, 0.1);
+		assertEquals(100, cenario.getSeguro());
 	}
 }

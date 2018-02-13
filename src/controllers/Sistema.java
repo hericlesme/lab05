@@ -1,7 +1,6 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 import entidades.Cenario;
 import entidades.CenarioBonus;
@@ -57,7 +56,6 @@ public class Sistema {
 	public int getCaixa() {
 		return caixa;
 	}
-
 
 	/**
 	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou vazia
@@ -115,7 +113,11 @@ public class Sistema {
 	 * @return uma String que contem todos os cenários do sistema.
 	 */
 	public String exibirCenarios() {
-		return cenarios.stream().map(Cenario::toString).collect(Collectors.joining(System.lineSeparator()));
+		String retorno = "";
+		for (int i = 0; i < cenarios.size(); i++) {
+			retorno += exibirCenario(i + 1) + System.lineSeparator();
+		}
+		return retorno;
 	}
 
 	/**
@@ -138,8 +140,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra uma aposta assegurada por taxa em um determinado cenário, dada
-	 * sua numeração.
+	 * Cadastra uma aposta assegurada por taxa em um determinado cenário, dada sua
+	 * numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -166,8 +168,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra uma aposta assegurada por valor em um determinado cenário, dada
-	 * sua numeração.
+	 * Cadastra uma aposta assegurada por valor em um determinado cenário, dada sua
+	 * numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -303,7 +305,7 @@ public class Sistema {
 	public int alterarSeguroValor(int cenario, int apostaAssegurada, int valor) {
 		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de valor");
 		validador.cenarioExistente(cenario, "Erro na alteração do seguro de valor", cenarios.size());
-		validador.alteraSeguroTaxaInvalido(apostaAssegurada, valor, totalDeApostas(cenario));
+		validador.alteraSeguroValorInvalido(apostaAssegurada, valor, totalDeApostas(cenario));
 		return cenarios.get(cenario - 1).alterarSeguroValor(apostaAssegurada, valor);
 	}
 
@@ -321,6 +323,7 @@ public class Sistema {
 	public int alterarSeguroTaxa(int cenario, int apostaAssegurada, double taxa) {
 		validador.cenarioInvalido(cenario, "Erro na alteração do seguro de taxa");
 		validador.cenarioExistente(cenario, "Erro na alteração do seguro de taxa", cenarios.size());
+		validador.alteraSeguroTaxaInvalido(apostaAssegurada, taxa, totalDeApostas(cenario));
 		return cenarios.get(cenario - 1).alterarSeguroTaxa(apostaAssegurada, taxa);
 	}
 }
