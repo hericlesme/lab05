@@ -124,7 +124,7 @@ public class Aposta {
 	/**
 	 * Altera um seguro da aposta para um seguro de taxa.
 	 * 
-	 * @param valor
+	 * @param taxa
 	 *            a taxa da aposta
 	 */
 	public void alterarSeguroTaxa(double taxa) {

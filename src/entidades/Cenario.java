@@ -106,7 +106,7 @@ public abstract class Cenario {
 	 *            o valor da aposta.
 	 * @param previsao
 	 *            a previsão da aposta.
-	 * @param taxa.
+	 * @param taxa
 	 *            a taxa correspondente ao valor seguro.
 	 * @return o id da aposta assegurada cadastrada.
 	 * 

@@ -179,7 +179,7 @@ public class Sistema {
 	 *            O valor da aposta.
 	 * @param previsao
 	 *            A previsão da aposta.
-	 * @param valor
+	 * @param valorAssegurado
 	 *            o valor do seguro.
 	 * @param custo
 	 *            o custo do seguro.

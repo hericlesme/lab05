@@ -41,8 +41,8 @@ public class Validador {
 	/**
 	 * Verifica se o cenário ainda não foi finalizado.
 	 * 
-	 * @param cenario
-	 *            a numeração do Cenário.
+	 * @param estado
+	 *            o estado do cenário.
 	 * @param mensagem
 	 *            uma mensagem a ser lançada na exceção.
 	 */
