@@ -48,15 +48,4 @@ public class SeguroValorTest {
 		assertEquals(" - ASSEGURADA (VALOR) - R$ 5,00", seguroValor.toString());
 	}
 
-	/**
-	 * Testa a alteração do tipo de um SeguroValor.
-	 */
-	@Test
-	public void testAlternaTipo() {
-		seguroValor = new SeguroValor(100);
-		Seguro naoSeguro = seguroValor.alternaTipo(new Object[] { 1000, 0.1 });
-		Seguro outroSeguro = new SeguroTaxa(1000, 0.1);
-		assertEquals(naoSeguro.toString(), outroSeguro.toString());
-		assertEquals(naoSeguro.getValor(), outroSeguro.getValor());
-	}
 }

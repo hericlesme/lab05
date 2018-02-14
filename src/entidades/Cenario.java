@@ -1,6 +1,7 @@
 package entidades;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
  *
  */
 public abstract class Cenario {
-	protected ArrayList<Aposta> apostas;
+	protected List<Aposta> apostas;
 	protected String descricao;
 	protected Estado estado;
 	protected int caixa;

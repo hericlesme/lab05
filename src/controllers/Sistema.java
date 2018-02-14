@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import entidades.Cenario;
 import entidades.CenarioBonus;
@@ -20,7 +21,7 @@ public class Sistema {
 	private int caixa;
 	private double taxa;
 	private Validador validador;
-	private ArrayList<Cenario> cenarios;
+	private List<Cenario> cenarios;
 
 	/**
 	 * Constrói um sistema, com taxa e caixa zerado, e inicializa sua lista de

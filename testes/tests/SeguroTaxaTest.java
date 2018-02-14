@@ -47,15 +47,4 @@ public class SeguroTaxaTest {
 		assertEquals(" - ASSEGURADA (TAXA) - 10%", seguroTaxa.toString());
 	}
 
-	/**
-	 * Testa a alteração do tipo de um SeguroTaxa.
-	 */
-	@Test
-	public void testAlternaTipo() {
-		seguroTaxa = new SeguroTaxa(100, 0.1);
-		Seguro naoSeguro = seguroTaxa.alternaTipo(new Object[] { 100 });
-		Seguro outroSeguro = new SeguroValor(100);
-		assertEquals(naoSeguro.toString(), outroSeguro.toString());
-		assertEquals(naoSeguro.getValor(), outroSeguro.getValor());
-	}
 }

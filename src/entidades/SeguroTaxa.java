@@ -43,16 +43,4 @@ public class SeguroTaxa extends Seguro {
 	public String toString() {
 		return " - ASSEGURADA (TAXA) - " + (int) (this.taxa * 100) + "%";
 	}
-
-	/**
-	 * Retorna o Seguro para qual este pode ser alterado.
-	 * 
-	 * @param args
-	 *            um array de objetos, que contém os parâmetros a serem utilizados
-	 *            na modificação do Seguro.
-	 * @return um SeguroValor com os valores passados.
-	 */
-	public Seguro alternaTipo(Object[] args) {
-		return new SeguroValor((int) args[0]);
-	}
 }

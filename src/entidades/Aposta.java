@@ -118,7 +118,7 @@ public class Aposta {
 	 *            o valor do seguro.
 	 */
 	public void alterarSeguroValor(int valorAssegurado) {
-		this.seguro = seguro.alternaTipo(new Object[]{valorAssegurado});
+		this.seguro = new SeguroValor(valorAssegurado);
 	}
 
 	/**
@@ -128,6 +128,6 @@ public class Aposta {
 	 *            a taxa da aposta
 	 */
 	public void alterarSeguroTaxa(double taxa) {
-		this.seguro = seguro.alternaTipo(new Object[]{this.valor,taxa});
+		this.seguro = new SeguroTaxa(this.valor,taxa);
 	}
 }
