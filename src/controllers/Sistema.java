@@ -1,9 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import entidades.Cenario;
 import entidades.CenarioBonus;
@@ -111,13 +113,18 @@ public class Sistema {
 	public String exibirCenario(int cenario) {
 		validador.cenarioInvalido(cenario, "Erro na consulta de cenario");
 		validador.cenarioExistente(cenario, "Erro na consulta de cenario", cenarios.size());
-		return cenario + " - " + cenarios.get(cenario - 1).toString();
+		return cenarios.get(cenario - 1).toString();
 	}
 
 	public String exibirCenarioOrdenado(int cenario) {
-		List<Cenario> cenariosOrdenados = cenarios;
-		Collections.sort(cenariosOrdenados, comparador);
-		return cenario + " - " + cenariosOrdenados.get(cenario - 1).toString();
+		validador.cenarioInvalido(cenario, "Erro na consulta de cenario ordenado");
+		validador.cenarioExistente(cenario, "Erro na consulta de cenario ordenado", cenarios.size());
+		          
+		Cenario[] cenariosOrdenados = new Cenario[cenarios.size()];
+		cenariosOrdenados = cenarios.toArray(cenariosOrdenados);
+		Arrays.sort(cenariosOrdenados, this.comparador);
+		
+		return cenariosOrdenados[cenario - 1].toString();
 	}
 
 	/**
@@ -127,14 +134,12 @@ public class Sistema {
 	 * @return uma String que contem todos os cenários do sistema.
 	 */
 	public String exibirCenarios() {
-		String retorno = "";
-		for (int i = 0; i < cenarios.size(); i++) {
-			retorno += exibirCenarioOrdenado(i + 1) + System.lineSeparator();
-		}
-		return retorno;
+		return cenarios.stream().map(Cenario::toString).collect(Collectors.joining(System.lineSeparator()));
 	}
 
 	public void alterarOrdem(String ordem) {
+		validador.ordemInvalida(ordem);
+
 		switch (ordem) {
 
 		case "cadastro":
@@ -245,7 +250,7 @@ public class Sistema {
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
-	 * @return um inteiro que indica a quantidade de apostas de um cenário.
+	 * @return um inteiro que indica a quadntidade de apostas de um cenário.
 	 */
 	public int totalDeApostas(int cenario) {
 		validador.cenarioInvalido(cenario, "Erro na consulta do total de apostas");

@@ -264,4 +264,14 @@ public class Validador {
 			throw new IllegalArgumentException(mensagem);
 		}
 	}
+	
+	public void ordemInvalida(String ordem) {
+		if (ordem.trim().equals("") || ordem == null) {			
+			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem nao pode ser vazia ou nula");
+		}
+		if (!(ordem.equals("nome") || ordem.equals("apostas") || ordem.equals("cadastro"))) {
+			throw new IllegalArgumentException("Erro ao alterar ordem: Ordem invalida");
+		}
+			
+	}
 }

@@ -5,7 +5,7 @@ package entidades;
  * não.
  */
 public enum Estado {
-	NAO_FINALIZADO("Nao finalizado"), OCORREU("Finalizado (ocorreu)"), NAO_OCORREU("Finalizado (não ocorreu)");
+	NAO_FINALIZADO("Nao finalizado"), OCORREU("Finalizado (ocorreu)"), NAO_OCORREU("Finalizado (n ocorreu)");
 
 	private String valor;
 

@@ -32,6 +32,6 @@ public class CenarioDefault extends Cenario {
 	 */
 	@Override
 	public String toString() {
-		return this.descricao + " - " + this.estado.getValor();
+		return this.id + " - " + this.descricao + " - " + this.estado.getValor();
 	}
 }

@@ -44,7 +44,7 @@ public class CenarioBonus extends Cenario {
 	 */
 	@Override
 	public String toString() {
-		return this.descricao + " - " + this.estado.getValor() + " - R$ "
+		return this.id + " - " + this.descricao + " - " + this.estado.getValor() + " - R$ "
 				+ String.format("%.2f", ((double) this.bonus / 100));
 	}
 }

@@ -33,7 +33,7 @@ public class Facade {
 		this.sys = new Sistema();
 	}
 	
-	public void alteraOrdem(String ordem) {
+	public void alterarOrdem(String ordem) {
 		sys.alterarOrdem(ordem);
 	}
 	public String exibirCenarioOrdenado(int cenario) {
