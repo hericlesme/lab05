@@ -25,7 +25,7 @@ public class Validador {
 	}
 
 	/**
-	 * Verifica se o cenário correspontende à numeração passada é inexistente.
+	 * Verifica se o cenário corresponaontende à numeração passada é inexistente.
 	 * 
 	 * @param cenario
 	 *            a numeração do Cenário.
@@ -251,7 +251,7 @@ public class Validador {
 		}
 	}
 
-	/**
+	/**inteiroInvalido
 	 * Verifica a validade de um double no sistema.
 	 * 
 	 * @param valor

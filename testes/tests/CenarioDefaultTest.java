@@ -158,11 +158,11 @@ public class CenarioDefaultTest {
 	@Test
 	public void testToString() {
 		cenario = new CenarioDefault("Me nota pf", 2);
-		assertEquals("Me nota pf - Nao finalizado", cenario.toString());
+		assertEquals("2 - Me nota pf - Nao finalizado", cenario.toString());
 		cenario.concretizaCenario(true);
-		assertEquals("Me nota pf - Finalizado (ocorreu)", cenario.toString());
+		assertEquals("2 - Me nota pf - Finalizado (ocorreu)", cenario.toString());
 		cenario.concretizaCenario(false);
-		assertEquals("Me nota pf - Finalizado (não ocorreu)", cenario.toString());
+		assertEquals("2 - Me nota pf - Finalizado (n ocorreu)", cenario.toString());
 	}
 
 	/**

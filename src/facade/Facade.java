@@ -32,17 +32,34 @@ public class Facade {
 	public Facade() {
 		this.sys = new Sistema();
 	}
-	
+
+	/**
+	 * Altera o tipo de ordenação da lista de cenários, dependendo da String
+	 * ordem. A String pode ser "cadastro", "nome" ou "apostas".
+	 * 
+	 * @param ordem
+	 *            o tipo de ordenação da lista de cenários.
+	 */
 	public void alterarOrdem(String ordem) {
 		sys.alterarOrdem(ordem);
 	}
+
+	/**
+	 * Exibe a representação em String de um cenário na ordenação predefinida
+	 * anteriormente, com sua numeração. A representação segue o formato:
+	 * "Numeracao - Descricao - Estado".
+	 * 
+	 * @param cenario
+	 *            a numeração do cenário a ser exibido.
+	 * @return a String exibindo o cenário.
+	 */
 	public String exibirCenarioOrdenado(int cenario) {
 		return sys.exibirCenarioOrdenado(cenario);
 	}
 
 	/**
-	 * Inicializa um sistema, a partir de sua sua caixa e taxa, elas não podem ser
-	 * inferiores a zero.
+	 * Inicializa um sistema, a partir de sua sua caixa e taxa, elas não podem
+	 * ser inferiores a zero.
 	 * 
 	 * @param caixa
 	 *            a caixa do sistema a ser inicializado.
@@ -63,9 +80,9 @@ public class Facade {
 	}
 
 	/**
-	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou vazia
-	 * e o aloca numa lista de cenários. e retorna a numeração do cenário, que é a
-	 * posição de alocação dele.
+	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou
+	 * vazia e o aloca numa lista de cenários. e retorna a numeração do cenário,
+	 * que é a posição de alocação dele.
 	 * 
 	 * @param descricao
 	 *            a descrição do cenario.
@@ -77,8 +94,9 @@ public class Facade {
 	}
 
 	/**
-	 * Cadastra um cenário a partir de uma descrição e bônus e o aloca numa lista de
-	 * cenários. e retorna a numeração do cenário, que é a posição de alocação dele.
+	 * Cadastra um cenário a partir de uma descrição e bônus e o aloca numa
+	 * lista de cenários. e retorna a numeração do cenário, que é a posição de
+	 * alocação dele.
 	 * 
 	 * @param descricao
 	 *            a descrição do cenario.
@@ -130,8 +148,8 @@ public class Facade {
 	}
 
 	/**
-	 * Cadastra uma aposta com seguro por valor em um determinado cenário, dada sua
-	 * numeração.
+	 * Cadastra uma aposta com seguro por valor em um determinado cenário, dada
+	 * sua numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -153,8 +171,8 @@ public class Facade {
 	}
 
 	/**
-	 * Cadastra uma aposta com seguro por taxa em um determinado cenário, dada sua
-	 * numeração.
+	 * Cadastra uma aposta com seguro por taxa em um determinado cenário, dada
+	 * sua numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -187,7 +205,7 @@ public class Facade {
 	}
 
 	/**
-	 * Retorna a quantidade de apostas de um cenário.
+	 * Retorna a quantidade de apostas de um ceComparatornário.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -198,7 +216,8 @@ public class Facade {
 	}
 
 	/**
-	 * Exibe a representação em string das apostas de um cenário, uma a cada linha.
+	 * Exibe a representação em string das apostas de um cenário, uma a cada
+	 * linha.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -209,8 +228,8 @@ public class Facade {
 	}
 
 	/**
-	 * Concretiza um cenário como ocorrido ou não, e incrementa a caixa do sistema,
-	 * de acordo com a caixa do cenário destinada ao sistema.
+	 * Concretiza um cenário como ocorrido ou não, e incrementa a caixa do
+	 * sistema, de acordo com a caixa do cenário destinada ao sistema.
 	 * 
 	 * @param cenario
 	 *            a numeração do Cenário.
@@ -222,8 +241,8 @@ public class Facade {
 	}
 
 	/**
-	 * Calcula a caixa do cenário, que é o produto da quantia de perdedores e taxa
-	 * do sistema.
+	 * Calcula a caixa do cenário, que é o produto da quantia de perdedores e
+	 * taxa do sistema.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -246,8 +265,8 @@ public class Facade {
 	}
 
 	/**
-	 * Altera o seguro de uma aposta em determinado cenário para seguro por valor,
-	 * dado seu id.
+	 * Altera o seguro de uma aposta em determinado cenário para seguro por
+	 * valor, dado seu id.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -262,8 +281,8 @@ public class Facade {
 	}
 
 	/**
-	 * Altera o seguro de uma aposta em determinado cenário para seguro por taxa,
-	 * dado seu id.
+	 * Altera o seguro de uma aposta em determinado cenário para seguro por
+	 * taxa, dado seu id.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.

@@ -73,7 +73,7 @@ public class SistemaTest {
 		assertEquals(1, sys.cadastrarCenario("eu nao me canso de pensar em voce", 100));
 		assertEquals(2, sys.cadastrarCenario("but u is too far", 99156));
 	}
-
+	
 	/**
 	 * Testa a exibição de um cenário default não finalizado.
 	 */
@@ -133,11 +133,11 @@ public class SistemaTest {
 	public void testExibirCenarioDefaultNaoOcorrido() {
 		sys.cadastrarCenario("e quero pedir");
 		sys.fecharAposta(1, false);
-		assertEquals("1 - e quero pedir - Finalizado (não ocorreu)", sys.exibirCenario(1));
+		assertEquals("1 - e quero pedir - Finalizado (n ocorreu)", sys.exibirCenario(1));
 
 		sys.cadastrarCenario("que me ajudem dnv");
 		sys.fecharAposta(2, false);
-		assertEquals("2 - que me ajudem dnv - Finalizado (não ocorreu)", sys.exibirCenario(2));
+		assertEquals("2 - que me ajudem dnv - Finalizado (n ocorreu)", sys.exibirCenario(2));
 	}
 
 	/**
@@ -147,32 +147,32 @@ public class SistemaTest {
 	public void testExibirCenarioBonusNaoOcorrido() {
 		sys.cadastrarCenario("mas agora a conquistar", 170);
 		sys.fecharAposta(1, false);
-		assertEquals("1 - mas agora a conquistar - Finalizado (não ocorreu) - R$ 1,70", sys.exibirCenario(1));
+		assertEquals("1 - mas agora a conquistar - Finalizado (n ocorreu) - R$ 1,70", sys.exibirCenario(1));
 
 		sys.cadastrarCenario("a rainha do meu coracao", 140);
 		sys.fecharAposta(2, false);
-		assertEquals("2 - a rainha do meu coracao - Finalizado (não ocorreu) - R$ 1,40", sys.exibirCenario(2));
+		assertEquals("2 - a rainha do meu coracao - Finalizado (n ocorreu) - R$ 1,40", sys.exibirCenario(2));
 	}
 
 	/**
-	 * Testa o método de exibição de cenarios, à medida que se adicionam cenários..
+	 * Testa o método de exibição de cenarios, à medida que se adicionam
+	 * cenários..
 	 */
 	@Test
 	public void testExibirCenarios() {
 		sys.cadastrarCenario("Isto é um cenário");
-		assertEquals("1 - Isto é um cenário - Nao finalizado" + System.lineSeparator(), sys.exibirCenarios());
+		assertEquals("1 - Isto é um cenário - Nao finalizado", sys.exibirCenarios());
 
 		sys.cadastrarCenario("Esse aqui ocorre");
 		sys.fecharAposta(2, true);
 		assertEquals("1 - Isto é um cenário - Nao finalizado" + System.lineSeparator()
-				+ "2 - Esse aqui ocorre - Finalizado (ocorreu)" + System.lineSeparator(), sys.exibirCenarios());
+				+ "2 - Esse aqui ocorre - Finalizado (ocorreu)", sys.exibirCenarios());
 
 		sys.cadastrarCenario("Esse n ocorre, e tem bonus", 120);
 		sys.fecharAposta(3, false);
 		assertEquals("1 - Isto é um cenário - Nao finalizado" + System.lineSeparator()
 				+ "2 - Esse aqui ocorre - Finalizado (ocorreu)" + System.lineSeparator()
-				+ "3 - Esse n ocorre, e tem bonus - Finalizado (não ocorreu) - R$ 1,20" + System.lineSeparator(),
-				sys.exibirCenarios());
+				+ "3 - Esse n ocorre, e tem bonus - Finalizado (n ocorreu) - R$ 1,20", sys.exibirCenarios());
 	}
 
 	/**
@@ -310,8 +310,8 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método que retorna a quantidade a ser dividida entre os apostadores
-	 * quando o cenário é Default.
+	 * Testa o método que retorna a quantidade a ser dividida entre os
+	 * apostadores quando o cenário é Default.
 	 */
 	@Test
 	public void testTotalRateioCenarioDefault() {
@@ -325,8 +325,8 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o método que retorna a quantidade a ser dividida entre os apostadores
-	 * quando o cenário é bonus.
+	 * Testa o método que retorna a quantidade a ser dividida entre os
+	 * apostadores quando o cenário é bonus.
 	 */
 	@Test
 	public void testTotalRateioCenarioBonus() {
@@ -530,7 +530,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta assegurada por valor quando a previsão é nula.
+	 * Testa o cadastro de uma aposta assegurada por valor quando a previsão é
+	 * nula.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testCadastraApostaSeguraValorPrevisaoNula() {
@@ -571,8 +572,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta assegurada por valor quando o valor do seguro
-	 * é inválido.
+	 * Testa o cadastro de uma aposta assegurada por valor quando o valor do
+	 * seguro é inválido.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaSeguraValorAsseguradoInvalido() {
@@ -599,8 +600,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta assegurada por valor quando o custo do seguro
-	 * é inválido.
+	 * Testa o cadastro de uma aposta assegurada por valor quando o custo do
+	 * seguro é inválido.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaSeguraValorCustoInvalido() {
@@ -633,7 +634,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta assegurada por Taxa quando a previsão é nula.
+	 * Testa o cadastro de uma aposta assegurada por Taxa quando a previsão é
+	 * nula.
 	 */
 	@Test(expected = NullPointerException.class)
 	public void testCadastraApostaSeguraTaxaPrevisaoNula() {
@@ -642,7 +644,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta assegurada por Taxa quando a previsão é vazia.
+	 * Testa o cadastro de uma aposta assegurada por Taxa quando a previsão é
+	 * vazia.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaSeguraTaxaPrevisaoVazia() {
@@ -681,7 +684,8 @@ public class SistemaTest {
 	}
 
 	/**
-	 * Testa o cadastro de uma aposta Assegurada quando a taxa do seguro é inválida.
+	 * Testa o cadastro de uma aposta Assegurada quando a taxa do seguro é
+	 * inválida.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaSeguraTaxaInvalida() {
@@ -690,8 +694,8 @@ public class SistemaTest {
 	}
 
 	/*
-	 * Testa o cadastro de uma aposta Assegurada por taxa quando o custo do seguro é
-	 * inválido.
+	 * Testa o cadastro de uma aposta Assegurada por taxa quando o custo do
+	 * seguro é inválido.
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testCadastraApostaSeguraTaxaCustoInvalido() {

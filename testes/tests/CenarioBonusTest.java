@@ -160,11 +160,11 @@ public class CenarioBonusTest {
 	@Test
 	public void testToString() {
 		cenario = new CenarioBonus("Me ama bb", 100, 1);
-		assertEquals("Me ama bb - Nao finalizado - R$ 1,00", cenario.toString());
+		assertEquals("1 - Me ama bb - Nao finalizado - R$ 1,00", cenario.toString());
 		cenario.concretizaCenario(true);
-		assertEquals("Me ama bb - Finalizado (ocorreu) - R$ 1,00", cenario.toString());
+		assertEquals("1 - Me ama bb - Finalizado (ocorreu) - R$ 1,00", cenario.toString());
 		cenario.concretizaCenario(false);
-		assertEquals("Me ama bb - Finalizado (não ocorreu) - R$ 1,00", cenario.toString());
+		assertEquals("1 - Me ama bb - Finalizado (n ocorreu) - R$ 1,00", cenario.toString());
 	}
 
 	/**
