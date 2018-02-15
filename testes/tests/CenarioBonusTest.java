@@ -25,7 +25,7 @@ public class CenarioBonusTest {
 	 */
 	@Before
 	public void inicializaCenario() {
-		cenario = new CenarioBonus("O teste agr vai dar certo", 100);
+		cenario = new CenarioBonus("O teste agr vai dar certo", 100, 1);
 	}
 
 	/*
@@ -34,7 +34,7 @@ public class CenarioBonusTest {
 	@Test
 	public void testConstrutor() {
 		assertTrue(outroCenario == null);
-		outroCenario = new CenarioBonus("la vamos nos dnv", 100);
+		outroCenario = new CenarioBonus("la vamos nos dnv", 100, 1);
 		assertFalse(cenario == null);
 	}
 
@@ -159,7 +159,7 @@ public class CenarioBonusTest {
 	 */
 	@Test
 	public void testToString() {
-		cenario = new CenarioBonus("Me ama bb", 100);
+		cenario = new CenarioBonus("Me ama bb", 100, 1);
 		assertEquals("Me ama bb - Nao finalizado - R$ 1,00", cenario.toString());
 		cenario.concretizaCenario(true);
 		assertEquals("Me ama bb - Finalizado (ocorreu) - R$ 1,00", cenario.toString());

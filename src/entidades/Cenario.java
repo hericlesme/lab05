@@ -16,6 +16,7 @@ public abstract class Cenario {
 	protected String descricao;
 	protected Estado estado;
 	protected int caixa;
+	protected int id;
 
 	/**
 	 * Construtor de um cenário, a partir de sua descrição.
@@ -23,11 +24,12 @@ public abstract class Cenario {
 	 * @param descricao
 	 *            a descrição do cenário.
 	 */
-	public Cenario(String descricao) {
+	public Cenario(String descricao, int id) {
 		this.caixa = 0;
 		this.descricao = descricao;
 		this.apostas = new ArrayList<>();
 		this.estado = Estado.NAO_FINALIZADO;
+		this.id = id;
 
 	}
 
@@ -43,12 +45,30 @@ public abstract class Cenario {
 	}
 
 	/**
+	 * Método get para a descrição do Cenário.
+	 * 
+	 * @return Enum que representa a descrição do Cenário.
+	 */
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	/**
 	 * Método get que retorna a caixa do Cenário.
 	 * 
 	 * @return um inteiro que representa a quantia na caixa do cenário.
 	 */
 	public int getCaixa() {
 		return caixa;
+	}
+
+	/**
+	 * Método get que retorna o id do Cenário.
+	 * 
+	 * @return um inteiro que representa o id do cenário.
+	 */
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -210,8 +230,8 @@ public abstract class Cenario {
 	// Métodos abstratos de Cenário.
 
 	/**
-	 * Método abstrato que solicita o cálculo do valor de rateio a ser dividido entre os
-	 * vencedores, utilizando a taxa do sistema.
+	 * Método abstrato que solicita o cálculo do valor de rateio a ser dividido
+	 * entre os vencedores, utilizando a taxa do sistema.
 	 * 
 	 * @param taxa
 	 *            a taxa do sistema.

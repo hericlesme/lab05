@@ -20,7 +20,7 @@ public class Facade {
 		args = new String[] { "facade.Facade", "testes/acceptance_test/us1_test.txt",
 				"testes/acceptance_test/us2_test.txt", "testes/acceptance_test/us3_test.txt",
 				"testes/acceptance_test/us4_test.txt", "testes/acceptance_test/us5_test.txt",
-				"testes/acceptance_test/us6_test.txt" };
+				"testes/acceptance_test/us6_test.txt", "testes/acceptance_test/us7_test.txt" };
 		EasyAccept.main(args);
 	}
 
@@ -31,6 +31,13 @@ public class Facade {
 	 */
 	public Facade() {
 		this.sys = new Sistema();
+	}
+	
+	public void alteraOrdem(String ordem) {
+		sys.alterarOrdem(ordem);
+	}
+	public String exibirCenarioOrdenado(int cenario) {
+		return sys.exibirCenarioOrdenado(cenario);
 	}
 
 	/**

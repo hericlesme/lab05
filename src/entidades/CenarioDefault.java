@@ -7,8 +7,8 @@ public class CenarioDefault extends Cenario {
 	 * @param descricao
 	 *            a descrição do cenário.
 	 */
-	public CenarioDefault(String descricao) {
-		super(descricao);
+	public CenarioDefault(String descricao, int id) {
+		super(descricao, id);
 	}
 
 	/**

@@ -19,8 +19,8 @@ public class CenarioBonus extends Cenario {
 	 * @param bonus
 	 *            o valor bônus do cenário.
 	 */
-	public CenarioBonus(String descricao, int bonus) {
-		super(descricao);
+	public CenarioBonus(String descricao, int bonus, int id) {
+		super(descricao, id);
 		this.bonus = bonus;
 	}
 

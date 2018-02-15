@@ -1,11 +1,16 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import entidades.Cenario;
 import entidades.CenarioBonus;
 import entidades.CenarioDefault;
+import entidades.ComparaApostas;
+import entidades.ComparaId;
+import entidades.ComparaNome;
 import entidades.Estado;
 import util.Validador;
 
@@ -21,6 +26,7 @@ public class Sistema {
 	private int caixa;
 	private double taxa;
 	private Validador validador;
+	private Comparator<Cenario> comparador;
 	private List<Cenario> cenarios;
 
 	/**
@@ -31,6 +37,7 @@ public class Sistema {
 		this.taxa = 0;
 		this.caixa = 0;
 		this.cenarios = new ArrayList<>();
+		this.comparador = new ComparaId();
 		this.validador = new Validador();
 	}
 
@@ -70,7 +77,7 @@ public class Sistema {
 	 */
 	public int cadastrarCenario(String descricao) {
 		validador.descricaoInvalida(descricao);
-		cenarios.add(new CenarioDefault(descricao));
+		cenarios.add(new CenarioDefault(descricao, cenarios.size() + 1));
 		return cenarios.size();
 	}
 
@@ -89,7 +96,7 @@ public class Sistema {
 		validador.descricaoInvalida(descricao);
 		validador.bonusInvalido(bonus);
 		this.caixa -= bonus;
-		cenarios.add(new CenarioBonus(descricao, bonus));
+		cenarios.add(new CenarioBonus(descricao, bonus, cenarios.size() + 1));
 		return cenarios.size();
 	}
 
@@ -107,6 +114,12 @@ public class Sistema {
 		return cenario + " - " + cenarios.get(cenario - 1).toString();
 	}
 
+	public String exibirCenarioOrdenado(int cenario) {
+		List<Cenario> cenariosOrdenados = cenarios;
+		Collections.sort(cenariosOrdenados, comparador);
+		return cenario + " - " + cenariosOrdenados.get(cenario - 1).toString();
+	}
+
 	/**
 	 * Exibe todos os cenários cadastrados em um sistema, com sua numeração e
 	 * representação em string.
@@ -116,9 +129,26 @@ public class Sistema {
 	public String exibirCenarios() {
 		String retorno = "";
 		for (int i = 0; i < cenarios.size(); i++) {
-			retorno += exibirCenario(i + 1) + System.lineSeparator();
+			retorno += exibirCenarioOrdenado(i + 1) + System.lineSeparator();
 		}
 		return retorno;
+	}
+
+	public void alterarOrdem(String ordem) {
+		switch (ordem) {
+
+		case "cadastro":
+			this.comparador = new ComparaId();
+			break;
+
+		case "nome":
+			this.comparador = new ComparaNome();
+			break;
+
+		case "apostas":
+			this.comparador = new ComparaApostas();
+			break;
+		}
 	}
 
 	/**

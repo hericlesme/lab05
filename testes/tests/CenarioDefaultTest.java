@@ -25,7 +25,7 @@ public class CenarioDefaultTest {
 	 */
 	@Before
 	public void inicializaCenario() {
-		cenario = new CenarioDefault("O teste vai dar certo");
+		cenario = new CenarioDefault("O teste vai dar certo", 2);
 	}
 
 	/*
@@ -34,7 +34,7 @@ public class CenarioDefaultTest {
 	@Test
 	public void testConstrutor() {
 		assertTrue(outroCenario == null);
-		outroCenario = new CenarioDefault("A BARATA MATOU HEMI");
+		outroCenario = new CenarioDefault("A BARATA MATOU HEMI", 2);
 		assertFalse(cenario == null);
 	}
 
@@ -157,7 +157,7 @@ public class CenarioDefaultTest {
 	 */
 	@Test
 	public void testToString() {
-		cenario = new CenarioDefault("Me nota pf");
+		cenario = new CenarioDefault("Me nota pf", 2);
 		assertEquals("Me nota pf - Nao finalizado", cenario.toString());
 		cenario.concretizaCenario(true);
 		assertEquals("Me nota pf - Finalizado (ocorreu)", cenario.toString());
