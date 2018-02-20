@@ -6,12 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import comparators.*;
 import entidades.Cenario;
 import entidades.CenarioBonus;
 import entidades.CenarioDefault;
-import entidades.ComparaApostas;
-import entidades.ComparaId;
-import entidades.ComparaNome;
 import entidades.Estado;
 import util.Validador;
 
@@ -43,8 +41,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Inicializa um sistema, a partir de sua sua caixa e taxa, elas não podem
-	 * ser inferiores a zero.
+	 * Inicializa um sistema, a partir de sua sua caixa e taxa, elas não podem ser
+	 * inferiores a zero.
 	 * 
 	 * @param caixa
 	 *            a caixa do sistema a ser inicializado.
@@ -67,9 +65,9 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou
-	 * vazia e o aloca numa lista de cenários. e retorna a numeração do cenário,
-	 * que é a posição de alocação dele.
+	 * Cadastra um cenário a partir de uma descrição, que não pode ser nula ou vazia
+	 * e o aloca numa lista de cenários. e retorna a numeração do cenário, que é a
+	 * posição de alocação dele.
 	 * 
 	 * @param descricao
 	 *            a descrição do cenario.
@@ -83,9 +81,9 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra um cenário com bônus a partir de uma descrição e um bônus, o
-	 * aloca numa lista de cenários. e retorna a numeração do cenário, que é a
-	 * posição de alocação dele.
+	 * Cadastra um cenário com bônus a partir de uma descrição e um bônus, o aloca
+	 * numa lista de cenários. e retorna a numeração do cenário, que é a posição de
+	 * alocação dele.
 	 * 
 	 * @param descricao
 	 *            a descrição do cenário.
@@ -117,8 +115,8 @@ public class Sistema {
 
 	/**
 	 * Exibe a representação em String de um cenário na ordenação predefinida
-	 * anteriormente, com sua numeração. A representação segue o formato:
-	 * "Numeracao - Descricao - Estado".
+	 * anteriormente, com sua numeração. A representação segue o formato: "Numeracao
+	 * - Descricao - Estado".
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário a ser exibido.
@@ -145,8 +143,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Altera o tipo de ordenação da lista de cenários, dependendo da String
-	 * ordem. A String pode ser "cadastro", "nome" ou "apostas".
+	 * Altera o tipo de ordenação da lista de cenários, dependendo da String ordem.
+	 * A String pode ser "cadastro", "nome" ou "apostas".
 	 * 
 	 * @param ordem
 	 *            o tipo de ordenação da lista de cenários.
@@ -190,8 +188,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra uma aposta assegurada por taxa em um determinado cenário, dada
-	 * sua numeração.
+	 * Cadastra uma aposta assegurada por taxa em um determinado cenário, dada sua
+	 * numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -218,8 +216,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Cadastra uma aposta assegurada por valor em um determinado cenário, dada
-	 * sua numeração.
+	 * Cadastra uma aposta assegurada por valor em um determinado cenário, dada sua
+	 * numeração.
 	 * 
 	 * @param cenario
 	 *            A numeração do cenário a ser cadastrado a aposta.
@@ -259,8 +257,8 @@ public class Sistema {
 		return cenarios.get(cenario - 1).valorTotalDeApostas();
 	}
 
-	/**ão 
-	 * Retorna a quantidade de apostas de um cenário.
+	/**
+	 * ão Retorna a quantidade de apostas de um cenário.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -274,8 +272,7 @@ public class Sistema {
 	}
 
 	/**
-	 * Exibe a representação em string das apostas de um cenário, uma a cada
-	 * linha.
+	 * Exibe a representação em string das apostas de um cenário, uma a cada linha.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -288,8 +285,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Concretiza um cenário como ocorrido ou não, e incrementa a caixa do
-	 * sistema, de acordo com a caixa do cenário destinada ao sistema.
+	 * Concretiza um cenário como ocorrido ou não, e incrementa a caixa do sistema,
+	 * de acordo com a caixa do cenário destinada ao sistema.
 	 * 
 	 * @param cenario
 	 *            a numeração do Cenário.
@@ -311,8 +308,8 @@ public class Sistema {
 	}
 
 	/**
-	 * Calcula a caixa do cenário, que é o produto da quantia de perdedores e
-	 * taxa do sistema.
+	 * Calcula a caixa do cenário, que é o produto da quantia de perdedores e taxa
+	 * do sistema.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.
@@ -361,8 +358,7 @@ public class Sistema {
 	}
 
 	/**
-	 * Altera um seguro de uma aposta em determinado cenário para um seguro de
-	 * taxa.
+	 * Altera um seguro de uma aposta em determinado cenário para um seguro de taxa.
 	 * 
 	 * @param cenario
 	 *            a numeração do cenário.

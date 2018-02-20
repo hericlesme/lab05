@@ -1,6 +1,8 @@
-package entidades;
+package comparators;
 
 import java.util.Comparator;
+
+import entidades.Cenario;
 
 /**
  * Classe de comparação de cenário por descrição. Implementa Comparator.

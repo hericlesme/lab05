@@ -1,18 +1,20 @@
-package entidades;
+package comparators;
 
 import java.util.Comparator;
 
+import entidades.Cenario;
+
 /**
- * Classe de comparação de cenário por apostas. Implementa Comparator.
+ * Classe de comparação de cenário por id. Implementa Comparator.
  * 
  * @author Héricles Emanuel - 117110647
  *
  */
-public class ComparaApostas implements Comparator<Cenario> {
+public class ComparaId implements Comparator<Cenario> {
 
 	/**
-	 * Comparara dois objetos do tipo Cenario, com base na ordem decrescente das
-	 * suas quantidades de apostas.
+	 * Comparara dois objetos do tipo Cenario, com base na sua ordem de
+	 * cadastro.
 	 * 
 	 * @param c1
 	 *            o primeiro Cenario.
@@ -22,7 +24,7 @@ public class ComparaApostas implements Comparator<Cenario> {
 	 */
 	@Override
 	public int compare(Cenario c1, Cenario c2) {
-		return c2.totalDeApostas() - c1.totalDeApostas();
+		return c1.getId() - c2.getId();
 	}
 
 }
